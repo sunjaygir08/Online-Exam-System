@@ -1,0 +1,5 @@
+{
+  "name": "Smart Exam Hub",
+  "description": "A modern, AI-powered examination system for students, teachers, and administrators with real-time proctoring and automated grading.",
+  "requestFramePermissions": ["camera", "microphone"]
+}
