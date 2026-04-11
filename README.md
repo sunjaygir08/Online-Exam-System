@@ -22,6 +22,20 @@ The app runs on `http://localhost:3000` by default.
 2. Preview the build:
    `npm run preview`
 
+## Backend
+
+A simple Express backend is included in [backend/server.js](backend/server.js).
+
+1. Start the backend:
+   `npm run backend`
+2. The server runs on `http://localhost:4000` by default.
+3. Demo accounts are seeded automatically on first run.
+
+Demo logins:
+- `admin@example.com` / `password123`
+- `teacher@example.com` / `password123`
+- `student@example.com` / `password123`
+
 ## Notes
 
 - The app can run without Gemini configuration for the dashboard flows.
