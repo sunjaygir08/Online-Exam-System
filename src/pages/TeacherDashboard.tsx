@@ -18,6 +18,7 @@ const CLASS_PERFORMANCE = [
 
 export const TeacherDashboard = () => {
   const [isNewUser, setIsNewUser] = React.useState(false);
+  const [statusMessage, setStatusMessage] = React.useState('');
 
   React.useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -50,12 +51,18 @@ export const TeacherDashboard = () => {
     { label: 'Notifications', path: '/notifications', icon: BellIcon },
   ];
 
+  const showMessage = (message: string) => {
+    setStatusMessage(message);
+    window.setTimeout(() => setStatusMessage(''), 2200);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold font-display text-slate-900">Examiner Dashboard</h1>
           <p className="text-slate-500">Manage your exams, questions, and track student performance.</p>
+          {statusMessage && <p className="text-sm text-brand-600 mt-2">{statusMessage}</p>}
         </div>
         <Link to="/teacher/create-exam">
           <Button size="lg">
@@ -106,7 +113,12 @@ export const TeacherDashboard = () => {
                   )}>
                     {exam.status}
                   </span>
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={`More actions for ${exam.title}`}
+                    onClick={() => showMessage(`Opened actions for ${exam.title}.`)}
+                  >
                     <MoreVertical className="w-4 h-4" />
                   </Button>
                 </div>

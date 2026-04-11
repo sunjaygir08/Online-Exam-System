@@ -11,6 +11,7 @@ export const LoginPage = () => {
   const location = useLocation();
   const isRegister = location.pathname === '/register';
   const [isLoading, setIsLoading] = React.useState(false);
+  const [statusMessage, setStatusMessage] = React.useState('');
   const [role, setRole] = React.useState<UserRole>('student');
   const [fullName, setFullName] = React.useState('');
 
@@ -38,6 +39,11 @@ export const LoginPage = () => {
     { id: 'admin', label: 'Admin', icon: Shield },
   ];
 
+  const showMessage = (message: string) => {
+    setStatusMessage(message);
+    window.setTimeout(() => setStatusMessage(''), 2500);
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-8">
@@ -52,6 +58,7 @@ export const LoginPage = () => {
           <p className="text-slate-500 mt-2">
             {isRegister ? 'Join thousands of students and teachers today' : 'Enter your credentials to access your dashboard'}
           </p>
+          {statusMessage && <p className="text-sm text-brand-600 mt-3">{statusMessage}</p>}
         </div>
 
         <Card className="p-8 shadow-xl border-slate-100">
@@ -111,7 +118,15 @@ export const LoginPage = () => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <label className="text-sm font-semibold text-slate-700">Password</label>
-                {!isRegister && <a href="#" className="text-sm font-medium text-brand-600 hover:text-brand-700">Forgot?</a>}
+                {!isRegister && (
+                  <button
+                    type="button"
+                    onClick={() => showMessage('Password reset flow is not connected in this demo.')}
+                    className="text-sm font-medium text-brand-600 hover:text-brand-700"
+                  >
+                    Forgot?
+                  </button>
+                )}
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -139,10 +154,10 @@ export const LoginPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="h-12">
+            <Button variant="outline" className="h-12" onClick={() => showMessage('Google sign-in is coming soon.') }>
               <Chrome className="w-5 h-5 mr-2" /> Google
             </Button>
-            <Button variant="outline" className="h-12">
+            <Button variant="outline" className="h-12" onClick={() => showMessage('GitHub sign-in is coming soon.') }>
               <Github className="w-5 h-5 mr-2" /> GitHub
             </Button>
           </div>

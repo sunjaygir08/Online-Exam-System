@@ -12,6 +12,30 @@ const USERS = [
 ];
 
 export const AdminUsersPage = () => {
+  const [users, setUsers] = React.useState(USERS);
+  const [query, setQuery] = React.useState('');
+
+  const addNewUser = () => {
+    const newUser = {
+      id: Date.now(),
+      name: 'New User',
+      email: `new.user.${Date.now()}@example.com`,
+      role: 'Student',
+      status: 'Active',
+    };
+    setUsers((prev) => [newUser, ...prev]);
+  };
+
+  const toggleStatus = (id: number) => {
+    setUsers((prev) => prev.map((user) => user.id === id ? { ...user, status: user.status === 'Active' ? 'Inactive' : 'Active' } : user));
+  };
+
+  const filteredUsers = users.filter((user) => {
+    const term = query.trim().toLowerCase();
+    if (!term) return true;
+    return user.name.toLowerCase().includes(term) || user.email.toLowerCase().includes(term) || user.role.toLowerCase().includes(term);
+  });
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -19,7 +43,7 @@ export const AdminUsersPage = () => {
           <h1 className="text-2xl font-bold text-slate-900">User Management</h1>
           <p className="text-slate-500">Manage all users, roles, and permissions.</p>
         </div>
-        <Button className="flex items-center gap-2">
+        <Button className="flex items-center gap-2" onClick={addNewUser}>
           <UserPlus className="w-4 h-4" />
           Add New User
         </Button>
@@ -32,6 +56,8 @@ export const AdminUsersPage = () => {
             <input 
               type="text" 
               placeholder="Search users..." 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500 outline-none"
             />
           </div>
@@ -48,7 +74,7 @@ export const AdminUsersPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {USERS.map((user) => (
+              {filteredUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -75,7 +101,12 @@ export const AdminUsersPage = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="p-2 text-slate-400 hover:text-slate-600">
+                    <button
+                      type="button"
+                      aria-label={`Toggle status for ${user.name}`}
+                      onClick={() => toggleStatus(user.id)}
+                      className="p-2 text-slate-400 hover:text-slate-600"
+                    >
                       <MoreVertical className="w-5 h-5" />
                     </button>
                   </td>

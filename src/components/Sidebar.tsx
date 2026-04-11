@@ -72,6 +72,7 @@ export const Sidebar = ({ role }: SidebarProps) => {
 
       <div className="p-4 border-t border-slate-100">
         <button 
+          type="button"
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors"
         >

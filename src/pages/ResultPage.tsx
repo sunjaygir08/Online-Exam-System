@@ -38,6 +38,26 @@ export const ResultPage = () => {
     }
   };
 
+  const handleDownloadCertificate = () => {
+    const content = [
+      'Smart Exam Hub - Certificate of Completion',
+      '-----------------------------------------',
+      'Student: Alex Johnson',
+      'Exam: Advanced Mathematics II',
+      `Score: ${score}/100`,
+      `Status: ${isPassed ? 'PASSED' : 'FAILED'}`,
+      `Issued: ${new Date().toLocaleDateString()}`,
+    ].join('\n');
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'smart-exam-certificate.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="text-center space-y-4">
@@ -128,7 +148,7 @@ export const ResultPage = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-        <Button size="lg" className="h-14 px-8">
+        <Button size="lg" className="h-14 px-8" onClick={handleDownloadCertificate}>
           <Download className="w-5 h-5 mr-2" /> Download Certificate
         </Button>
         <Button variant="outline" size="lg" className="h-14 px-8" onClick={handleShare}>

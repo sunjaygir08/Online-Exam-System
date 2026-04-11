@@ -37,6 +37,8 @@ export const ExamDetailsModal = ({ exam, isOpen, onClose, onStart }: ExamDetails
                   <BookOpen className="w-8 h-8 text-brand-600" />
                 </div>
                 <button 
+                  type="button"
+                  aria-label="Close exam details"
                   onClick={onClose}
                   className="p-2 hover:bg-slate-100 rounded-full transition-colors"
                 >

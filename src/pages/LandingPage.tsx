@@ -44,7 +44,12 @@ export const LandingPage = () => {
             </div>
 
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600">
+              <button
+                type="button"
+                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-slate-600"
+              >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>

@@ -12,6 +12,7 @@ export const ActiveExamPage = () => {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const [timeLeft, setTimeLeft] = React.useState(3600); // 1 hour in seconds
   const [answers, setAnswers] = React.useState<Record<string, number>>({});
+  const [helpMessage, setHelpMessage] = React.useState('');
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -83,6 +84,7 @@ export const ActiveExamPage = () => {
               {question.options.map((option, idx) => (
                 <button
                   key={idx}
+                  type="button"
                   onClick={() => setAnswers({ ...answers, [question.id]: idx })}
                   className={cn(
                     "w-full p-5 rounded-2xl border-2 text-left transition-all flex items-center justify-between group",
@@ -118,7 +120,9 @@ export const ActiveExamPage = () => {
                 {MOCK_QUESTIONS.map((_, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => setCurrentQuestion(idx)}
+                    aria-label={`Go to question ${idx + 1}`}
                     className={cn(
                       "w-3 h-3 rounded-full transition-all",
                       currentQuestion === idx ? "w-8 bg-brand-600" : "bg-slate-300 hover:bg-slate-400"
@@ -144,7 +148,9 @@ export const ActiveExamPage = () => {
             {MOCK_QUESTIONS.map((q, idx) => (
               <button
                 key={q.id}
+                type="button"
                 onClick={() => setCurrentQuestion(idx)}
+                aria-label={`Open question ${idx + 1}`}
                 className={cn(
                   "h-12 rounded-xl border-2 flex items-center justify-center font-bold transition-all",
                   currentQuestion === idx 
@@ -163,9 +169,14 @@ export const ActiveExamPage = () => {
             <div className="absolute top-0 right-0 w-20 h-20 bg-brand-500/20 blur-2xl rounded-full -mr-10 -mt-10"></div>
             <h4 className="font-bold mb-2 relative z-10">Need Help?</h4>
             <p className="text-sm text-slate-400 mb-4 relative z-10">If you encounter any technical issues, please contact the proctor immediately.</p>
-            <Button variant="outline" className="w-full border-slate-700 text-white hover:bg-slate-800 relative z-10">
+            <Button
+              variant="outline"
+              className="w-full border-slate-700 text-white hover:bg-slate-800 relative z-10"
+              onClick={() => setHelpMessage('Proctor notified. Please keep your camera on and continue the exam.')}
+            >
               Contact Proctor
             </Button>
+            {helpMessage && <p className="text-xs text-emerald-300 mt-3 relative z-10">{helpMessage}</p>}
           </div>
         </aside>
       </main>

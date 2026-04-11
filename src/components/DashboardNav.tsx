@@ -23,6 +23,7 @@ export const DashboardNav = ({ items }: DashboardNavProps) => {
         return (
           <button
             key={item.path}
+            type="button"
             onClick={() => navigate(item.path)}
             className={cn(
               "flex items-center gap-2 px-6 py-3 rounded-2xl whitespace-nowrap transition-all border-2",

@@ -11,6 +11,20 @@ export const MyExamsPage = () => {
   const navigate = useNavigate();
   const [selectedExam, setSelectedExam] = React.useState<Exam | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [query, setQuery] = React.useState('');
+  const [filter, setFilter] = React.useState<'all' | 'active' | 'upcoming'>('all');
+
+  const filteredExams = MOCK_EXAMS.filter((exam) => {
+    const searchMatch = exam.title.toLowerCase().includes(query.toLowerCase()) || exam.description.toLowerCase().includes(query.toLowerCase());
+    const filterMatch = filter === 'all' ? true : exam.status === filter;
+    return searchMatch && filterMatch;
+  });
+
+  const cycleFilter = () => {
+    const order: Array<'all' | 'active' | 'upcoming'> = ['all', 'active', 'upcoming'];
+    const next = order[(order.indexOf(filter) + 1) % order.length];
+    setFilter(next);
+  };
 
   return (
     <div className="space-y-8">
@@ -27,18 +41,20 @@ export const MyExamsPage = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input 
               type="text" 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               className="w-full pl-11 pr-4 py-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500" 
               placeholder="Search exams..." 
             />
           </div>
-          <Button variant="outline">
-            <Filter className="w-4 h-4 mr-2" /> Filter
+          <Button variant="outline" onClick={cycleFilter}>
+            <Filter className="w-4 h-4 mr-2" /> Filter: {filter}
           </Button>
         </div>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {MOCK_EXAMS.map((exam) => (
+        {filteredExams.map((exam) => (
           <div key={exam.id}>
             <Card className="flex flex-col h-full hover:border-brand-300 transition-all group">
               <div className="p-6 flex-1">
@@ -82,6 +98,10 @@ export const MyExamsPage = () => {
           </div>
         ))}
       </div>
+
+      {filteredExams.length === 0 && (
+        <Card className="p-8 text-center text-slate-500">No exams found for the selected filter.</Card>
+      )}
 
       <ExamDetailsModal 
         exam={selectedExam}

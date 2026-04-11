@@ -12,6 +12,21 @@ const LOGS = [
 ];
 
 export const AdminLogsPage = () => {
+  const [query, setQuery] = React.useState('');
+  const [filter, setFilter] = React.useState<'all' | 'info' | 'warning' | 'success' | 'error'>('all');
+
+  const filteredLogs = LOGS.filter((log) => {
+    const queryMatch = log.message.toLowerCase().includes(query.toLowerCase()) || log.user.toLowerCase().includes(query.toLowerCase());
+    const filterMatch = filter === 'all' || log.type === filter;
+    return queryMatch && filterMatch;
+  });
+
+  const cycleFilter = () => {
+    const order: Array<'all' | 'info' | 'warning' | 'success' | 'error'> = ['all', 'info', 'warning', 'success', 'error'];
+    const next = order[(order.indexOf(filter) + 1) % order.length];
+    setFilter(next);
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -26,17 +41,23 @@ export const AdminLogsPage = () => {
             <input 
               type="text" 
               placeholder="Search logs..." 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500 outline-none"
             />
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+          <button
+            type="button"
+            onClick={cycleFilter}
+            className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"
+          >
             <Filter className="w-4 h-4" />
-            Filter
+            Filter: {filter}
           </button>
         </div>
 
         <div className="divide-y divide-slate-100">
-          {LOGS.map((log) => (
+          {filteredLogs.map((log) => (
             <div key={log.id} className="p-4 flex items-start gap-4 hover:bg-slate-50 transition-colors">
               <div className={cn(
                 "p-2 rounded-lg shrink-0",
@@ -63,6 +84,9 @@ export const AdminLogsPage = () => {
               </div>
             </div>
           ))}
+          {filteredLogs.length === 0 && (
+            <div className="p-8 text-center text-slate-500 text-sm">No logs match your current filter.</div>
+          )}
         </div>
       </div>
     </div>
