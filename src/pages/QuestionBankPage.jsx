@@ -4,10 +4,14 @@ import { Button } from '../components/Button.jsx';
 import { Search, Filter, Plus, Edit2, Trash2, FileText, MoreVertical } from 'lucide-react';
 import { MOCK_QUESTIONS } from '../mockData.js';
 import { cn } from '../lib/utils.js';
+import { getStoredUser } from '../lib/session.js';
 
 export const QuestionBankPage = () => {
   const [questions, setQuestions] = React.useState([]);
   const [isAdding, setIsAdding] = React.useState(false);
+  const [query, setQuery] = React.useState('');
+  const [filterMode, setFilterMode] = React.useState('all');
+  const [editingId, setEditingId] = React.useState(null);
   const [newQuestion, setNewQuestion] = React.useState({
     text: '',
     type: 'multiple-choice',
@@ -17,8 +21,12 @@ export const QuestionBankPage = () => {
   });
 
   React.useEffect(() => {
+    const fresh = Boolean(getStoredUser()?.isNewUser);
     const stored = localStorage.getItem('question_bank');
-    if (stored) {
+    if (fresh) {
+      localStorage.removeItem('question_bank');
+      setQuestions([]);
+    } else if (stored) {
       setQuestions(JSON.parse(stored));
     } else {
       localStorage.setItem('question_bank', JSON.stringify(MOCK_QUESTIONS));
@@ -31,13 +39,30 @@ export const QuestionBankPage = () => {
     localStorage.setItem('question_bank', JSON.stringify(updated));
   };
 
+  const cycleFilter = () => {
+    const order = ['all', 'multiple-choice', 'short-answer'];
+    const next = order[(order.indexOf(filterMode) + 1) % order.length];
+    setFilterMode(next);
+  };
+
+  const filteredQuestions = questions.filter((q) => {
+    const queryMatch = q.text.toLowerCase().includes(query.toLowerCase());
+    const filterMatch = filterMode === 'all' ? true : q.type === filterMode;
+    return queryMatch && filterMatch;
+  });
+
   const handleAdd = () => {
     const q = {
       ...newQuestion,
-      id: 'Q-' + Date.now()
+      id: editingId || 'Q-' + Date.now()
     };
-    saveQuestions([q, ...questions]);
+    const nextQuestions = editingId
+      ? questions.map((question) => question.id === editingId ? q : question)
+      : [q, ...questions];
+
+    saveQuestions(nextQuestions);
     setIsAdding(false);
+    setEditingId(null);
     setNewQuestion({
       text: '',
       type: 'multiple-choice',
@@ -49,6 +74,18 @@ export const QuestionBankPage = () => {
 
   const handleDelete = (id) => {
     saveQuestions(questions.filter(q => q.id !== id));
+  };
+
+  const handleEdit = (question) => {
+    setEditingId(question.id);
+    setNewQuestion({
+      text: question.text,
+      type: question.type,
+      points: question.points,
+      options: [...question.options],
+      correctAnswer: question.correctAnswer,
+    });
+    setIsAdding(true);
   };
 
   return (
@@ -64,7 +101,7 @@ export const QuestionBankPage = () => {
       </div>
 
       {isAdding && (
-        <Card title="New Question" className="p-6">
+        <Card title={editingId ? 'Edit Question' : 'New Question'} className="p-6">
           <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Question Text</label>
@@ -99,7 +136,10 @@ export const QuestionBankPage = () => {
               ))}
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" onClick={() => setIsAdding(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => {
+                setIsAdding(false);
+                setEditingId(null);
+              }}>Cancel</Button>
               <Button onClick={handleAdd}>Save Question</Button>
             </div>
           </div>
@@ -110,21 +150,28 @@ export const QuestionBankPage = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input type="text" className="w-full pl-11 pr-4 py-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500" placeholder="Search questions..." />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full pl-11 pr-4 py-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-500"
+              placeholder="Search questions..."
+            />
           </div>
-          <Button variant="outline">
-            <Filter className="w-4 h-4 mr-2" /> Filter
+          <Button variant="outline" onClick={cycleFilter}>
+            <Filter className="w-4 h-4 mr-2" /> Filter: {filterMode}
           </Button>
         </div>
       </Card>
 
       <div className="space-y-4">
-        {questions.length === 0 ? (
+        {filteredQuestions.length === 0 ? (
           <div className="py-12 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200">
             <FileText className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-slate-500 font-medium">No questions in your bank yet.</p>
+            <p className="text-slate-500 font-medium">No questions match your current view.</p>
+            {questions.length === 0 && <p className="text-sm text-slate-400 mt-1">Fresh teacher accounts start with an empty question bank.</p>}
           </div>
-        ) : questions.map((q) => (
+        ) : filteredQuestions.map((q) => (
           <div key={q.id}>
             <Card className="p-6 hover:border-brand-200 transition-colors">
               <div className="flex items-start justify-between gap-4">
@@ -151,7 +198,7 @@ export const QuestionBankPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" onClick={() => handleEdit(q)}>
                     <Edit2 className="w-4 h-4" />
                   </Button>
                   <Button 

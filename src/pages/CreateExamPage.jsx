@@ -11,6 +11,7 @@ export const CreateExamPage = () => {
   const [description, setDescription] = React.useState('');
   const [questions, setQuestions] = React.useState([]);
   const [isPublishing, setIsPublishing] = React.useState(false);
+  const [settings, setSettings] = React.useState([true, true, true, true]);
 
   const addQuestion = () => {
     const newQuestion = {
@@ -41,6 +42,26 @@ export const CreateExamPage = () => {
 
   const removeQuestion = (id) => {
     setQuestions(questions.filter(q => q.id !== id));
+  };
+
+  const importFromBank = () => {
+    const stored = localStorage.getItem('question_bank');
+    const bankQuestions = stored ? JSON.parse(stored) : [];
+    const imported = bankQuestions.slice(0, 2).map((question) => ({
+      id: Date.now().toString() + Math.random().toString(16).slice(2),
+      text: question.text,
+      type: question.type || 'multiple-choice',
+      points: question.points || 5,
+      options: question.options || ['', '', '', ''],
+      correctAnswer: question.correctAnswer || 0,
+    }));
+
+    if (imported.length === 0) {
+      alert('No questions available in the question bank yet.');
+      return;
+    }
+
+    setQuestions([...questions, ...imported]);
   };
 
   const handlePublish = () => {
@@ -179,7 +200,7 @@ export const CreateExamPage = () => {
                 {questions.length === 0 ? 'Start by adding your first question or import from question bank.' : 'Add another question to your exam.'}
               </p>
               <div className="flex gap-3">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={importFromBank}>
                   <List className="w-4 h-4 mr-2" /> Import from Bank
                 </Button>
                 <Button size="sm" onClick={addQuestion}>
@@ -203,9 +224,14 @@ export const CreateExamPage = () => {
                   <p className="font-semibold text-slate-900">{setting.label}</p>
                   <p className="text-xs text-slate-500">{setting.desc}</p>
                 </div>
-                <div className="w-12 h-6 bg-brand-600 rounded-full relative cursor-pointer">
-                  <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
-                </div>
+                <button
+                  type="button"
+                  aria-label={`Toggle ${setting.label}`}
+                  onClick={() => setSettings((prev) => prev.map((value, index) => index === idx ? !value : value))}
+                  className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors ${settings[idx] ? 'bg-brand-600' : 'bg-slate-300'}`}
+                >
+                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${settings[idx] ? 'right-1' : 'left-1'}`}></div>
+                </button>
               </div>
             ))}
           </div>

@@ -9,6 +9,7 @@ import { cn } from '../lib/utils.js';
 import { useNavigate } from 'react-router-dom';
 import { DashboardNav } from '../components/DashboardNav.jsx';
 import { ExamDetailsModal } from '../components/ExamDetailsModal.jsx';
+import { getStoredUser } from '../lib/session.js';
 
 const PERFORMANCE_DATA = [
   { subject: 'Math', score: 85 },
@@ -23,6 +24,7 @@ export const StudentDashboard = () => {
   const [isNewUser, setIsNewUser] = React.useState(false);
   const [selectedExam, setSelectedExam] = React.useState(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [exams, setExams] = React.useState([]);
 
   const studentNavItems = [
     { label: 'Dashboard', path: '/student/dashboard', icon: LayoutDashboard },
@@ -33,11 +35,10 @@ export const StudentDashboard = () => {
   ];
 
   React.useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setIsNewUser(userData.isNewUser);
-    }
+    const userData = getStoredUser();
+    const fresh = Boolean(userData?.isNewUser);
+    setIsNewUser(fresh);
+    setExams(fresh ? [] : MOCK_EXAMS);
   }, []);
 
   const stats = [
@@ -97,7 +98,7 @@ export const StudentDashboard = () => {
             <Button variant="ghost" size="sm" onClick={() => navigate('/student/exams')}>View All</Button>
           </div>
           <div className="space-y-4">
-            {MOCK_EXAMS.map((exam) => (
+            {exams.length > 0 ? exams.map((exam) => (
               <div key={exam.id}>
                 <Card className="group hover:border-brand-300 transition-all">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -131,7 +132,13 @@ export const StudentDashboard = () => {
                   </div>
                 </Card>
               </div>
-            ))}
+            )) : (
+              <Card className="p-8 text-center border border-dashed border-slate-200 bg-slate-50">
+                <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                <p className="font-medium text-slate-600">No exams assigned yet.</p>
+                <p className="text-sm text-slate-500 mt-1">Fresh student accounts start with an empty dashboard.</p>
+              </Card>
+            )}
           </div>
 
           {!isNewUser && (

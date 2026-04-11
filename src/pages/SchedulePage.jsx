@@ -3,9 +3,12 @@ import { Card } from '../components/Card.jsx';
 import { Calendar as CalendarIcon, Clock, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../components/Button.jsx';
 import { MOCK_EXAMS } from '../mockData.js';
+import { getStoredUser } from '../lib/session.js';
 
 export const SchedulePage = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
+  const isFreshUser = Boolean(getStoredUser()?.isNewUser);
+  const exams = isFreshUser ? [] : MOCK_EXAMS;
 
   const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
@@ -54,7 +57,7 @@ export const SchedulePage = () => {
             {padding.map(i => <div key={`pad-${i}`} className="aspect-square" />)}
             {days.map(day => {
               const date = new Date(year, month, day);
-              const hasExam = MOCK_EXAMS.some(exam => 
+              const hasExam = exams.some(exam => 
                 new Date(exam.startTime).toDateString() === date.toDateString()
               );
               const isToday = new Date().toDateString() === date.toDateString();
@@ -79,7 +82,7 @@ export const SchedulePage = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-bold text-slate-900">Upcoming Events</h2>
           <div className="space-y-4">
-            {MOCK_EXAMS.map(exam => (
+            {exams.length > 0 ? exams.map(exam => (
               <div key={exam.id}>
                 <Card className="p-4 border-l-4 border-l-brand-600">
                   <div className="flex items-start gap-3">
@@ -102,7 +105,12 @@ export const SchedulePage = () => {
                   </div>
                 </Card>
               </div>
-            ))}
+            )) : (
+              <Card className="p-6 text-center border-dashed border-slate-200 bg-slate-50">
+                <p className="text-sm text-slate-500">No upcoming events yet.</p>
+                {isFreshUser && <p className="text-xs text-slate-400 mt-1">Fresh student accounts start with an empty schedule.</p>}
+              </Card>
+            )}
           </div>
         </div>
       </div>

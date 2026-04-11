@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { User, Mail, Shield, MoreVertical, Search, UserPlus } from 'lucide-react';
 import { Button } from '../components/Button.jsx';
 import { cn } from '../lib/utils.js';
+import { getStoredUser } from '../lib/session.js';
 
 const USERS = [
   { id: 1, name: 'Sunjay Gir', email: 'sunjaygir@gmail.com', role: 'Admin', status: 'Active' },
@@ -12,7 +13,7 @@ const USERS = [
 ];
 
 export const AdminUsersPage = () => {
-  const [users, setUsers] = React.useState(USERS);
+  const [users, setUsers] = React.useState(() => (getStoredUser()?.isNewUser ? [] : USERS));
   const [query, setQuery] = React.useState('');
 
   const addNewUser = () => {
@@ -64,6 +65,11 @@ export const AdminUsersPage = () => {
         </div>
 
         <div className="overflow-x-auto">
+          {users.length === 0 ? (
+            <div className="p-8 text-center text-slate-500">
+              Fresh admin accounts start with no users added yet.
+            </div>
+          ) : (
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-100">
@@ -114,6 +120,7 @@ export const AdminUsersPage = () => {
               ))}
             </tbody>
           </table>
+          )}
         </div>
       </div>
     </div>

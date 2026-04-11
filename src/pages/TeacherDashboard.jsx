@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils.js';
 import { DashboardNav } from '../components/DashboardNav.jsx';
 import { LayoutDashboard, ClipboardList as ClipboardIcon, BookOpen as BookIcon, Bell as BellIcon, Calendar as CalendarIcon } from 'lucide-react';
+import { getStoredUser } from '../lib/session.js';
 
 const CLASS_PERFORMANCE = [
   { name: 'Class A', avg: 78 },
@@ -24,25 +25,28 @@ export const TeacherDashboard = () => {
 
   const loadData = () => {
     setIsRefreshing(true);
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setIsNewUser(userData.isNewUser);
-      
-      const storedExams = localStorage.getItem('teacher_exams');
-      if (storedExams) {
-        setExams(JSON.parse(storedExams));
-      } else if (!userData.isNewUser) {
-        const mockExams = [
-          { title: 'Physics Mid-term', date: '2024-04-15', students: 120, status: 'Scheduled' },
-          { title: 'Chemistry Quiz', date: '2024-04-12', students: 85, status: 'Active' },
-          { title: 'Biology Final', date: '2024-04-08', students: 150, status: 'Completed' },
-        ];
-        localStorage.setItem('teacher_exams', JSON.stringify(mockExams));
-        setExams(mockExams);
-      } else {
-        setExams([]);
-      }
+    const userData = getStoredUser();
+    const fresh = Boolean(userData?.isNewUser);
+    setIsNewUser(fresh);
+
+    if (fresh) {
+      localStorage.removeItem('teacher_exams');
+      setExams([]);
+      setTimeout(() => setIsRefreshing(false), 600);
+      return;
+    }
+
+    const storedExams = localStorage.getItem('teacher_exams');
+    if (storedExams) {
+      setExams(JSON.parse(storedExams));
+    } else {
+      const mockExams = [
+        { title: 'Physics Mid-term', date: '2024-04-15', students: 120, status: 'Scheduled' },
+        { title: 'Chemistry Quiz', date: '2024-04-12', students: 85, status: 'Active' },
+        { title: 'Biology Final', date: '2024-04-08', students: 150, status: 'Completed' },
+      ];
+      localStorage.setItem('teacher_exams', JSON.stringify(mockExams));
+      setExams(mockExams);
     }
     setTimeout(() => setIsRefreshing(false), 600);
   };

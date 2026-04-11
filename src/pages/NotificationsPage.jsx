@@ -4,13 +4,18 @@ import { Button } from '../components/Button.jsx';
 import { Bell, CheckCircle, AlertCircle, Info, Trash2, Check } from 'lucide-react';
 import { MOCK_NOTIFICATIONS } from '../mockData.js';
 import { cn } from '../lib/utils.js';
+import { getStoredUser } from '../lib/session.js';
 
 export const NotificationsPage = () => {
   const [notifications, setNotifications] = React.useState([]);
 
   React.useEffect(() => {
+    const fresh = Boolean(getStoredUser()?.isNewUser);
     const stored = localStorage.getItem('notifications');
-    if (stored) {
+    if (fresh) {
+      localStorage.removeItem('notifications');
+      setNotifications([]);
+    } else if (stored) {
       setNotifications(JSON.parse(stored));
     } else {
       localStorage.setItem('notifications', JSON.stringify(MOCK_NOTIFICATIONS));

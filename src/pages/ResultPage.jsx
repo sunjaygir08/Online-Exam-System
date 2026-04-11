@@ -6,6 +6,7 @@ import { Button } from '../components/Button.jsx';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils.js';
+import { getStoredUser } from '../lib/session.js';
 
 const TOPIC_PERFORMANCE = [
   { topic: 'Calculus', score: 92 },
@@ -16,8 +17,31 @@ const TOPIC_PERFORMANCE = [
 ];
 
 export const ResultPage = () => {
+  const isFreshUser = Boolean(getStoredUser()?.isNewUser);
   const score = 88;
   const isPassed = score >= 40;
+
+  if (isFreshUser) {
+    return (
+      <div className="max-w-3xl mx-auto text-center space-y-6">
+        <Card className="p-10">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 text-slate-400 mb-4">
+            <Award className="w-10 h-10" />
+          </div>
+          <h1 className="text-3xl font-bold font-display text-slate-900">No results yet</h1>
+          <p className="text-slate-500 mt-3">Fresh student accounts do not have exam results until they complete an exam.</p>
+          <div className="mt-6 flex justify-center gap-3">
+            <Link to="/student/exams">
+              <Button>Browse Exams</Button>
+            </Link>
+            <Link to="/student/dashboard">
+              <Button variant="outline">Back to Dashboard</Button>
+            </Link>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   const handleShare = async () => {
     const shareData = {

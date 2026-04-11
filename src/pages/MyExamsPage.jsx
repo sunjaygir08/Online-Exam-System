@@ -5,6 +5,7 @@ import { BookOpen, Clock, Calendar, Search, Filter } from 'lucide-react';
 import { MOCK_EXAMS } from '../mockData.js';
 import { useNavigate } from 'react-router-dom';
 import { ExamDetailsModal } from '../components/ExamDetailsModal.jsx';
+import { getStoredUser } from '../lib/session.js';
 
 export const MyExamsPage = () => {
   const navigate = useNavigate();
@@ -12,8 +13,10 @@ export const MyExamsPage = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const [filter, setFilter] = React.useState('all');
+  const isFreshUser = Boolean(getStoredUser()?.isNewUser);
+  const exams = isFreshUser ? [] : MOCK_EXAMS;
 
-  const filteredExams = MOCK_EXAMS.filter((exam) => {
+  const filteredExams = exams.filter((exam) => {
     const searchMatch = exam.title.toLowerCase().includes(query.toLowerCase()) || exam.description.toLowerCase().includes(query.toLowerCase());
     const filterMatch = filter === 'all' ? true : exam.status === filter;
     return searchMatch && filterMatch;
@@ -99,7 +102,10 @@ export const MyExamsPage = () => {
       </div>
 
       {filteredExams.length === 0 && (
-        <Card className="p-8 text-center text-slate-500">No exams found for the selected filter.</Card>
+        <Card className="p-8 text-center text-slate-500">
+          <p>No exams found for the selected filter.</p>
+          {isFreshUser && <p className="text-sm text-slate-400 mt-1">Fresh student accounts start with no assigned exams.</p>}
+        </Card>
       )}
 
       <ExamDetailsModal 

@@ -4,6 +4,7 @@ import { GraduationCap, Mail, Lock, ArrowRight, Github, Chrome, User, Users, Shi
 import { Button } from '../components/Button.jsx';
 import { Card } from '../components/Card.jsx';
 import { cn } from '../lib/utils.js';
+import { setStoredUser } from '../lib/session.js';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const LoginPage = () => {
       role: role,
       isNewUser: isRegister
     };
-    localStorage.setItem('user', JSON.stringify(userData));
+    setStoredUser(userData, { resetDemoData: isRegister });
 
     setTimeout(() => {
       setIsLoading(false);

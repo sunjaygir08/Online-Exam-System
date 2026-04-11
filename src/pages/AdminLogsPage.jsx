@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Clock, AlertTriangle, Info, CheckCircle2, Search, Filter } from 'lucide-react';
 import { cn } from '../lib/utils.js';
+import { getStoredUser } from '../lib/session.js';
 
 const LOGS = [
   { id: 1, type: 'info', message: 'User Sunjay Gir logged in', time: '2 mins ago', user: 'Sunjay Gir' },
@@ -14,8 +15,10 @@ const LOGS = [
 export const AdminLogsPage = () => {
   const [query, setQuery] = React.useState('');
   const [filter, setFilter] = React.useState('all');
+  const isFreshUser = Boolean(getStoredUser()?.isNewUser);
+  const logs = isFreshUser ? [] : LOGS;
 
-  const filteredLogs = LOGS.filter((log) => {
+  const filteredLogs = logs.filter((log) => {
     const queryMatch = log.message.toLowerCase().includes(query.toLowerCase()) || log.user.toLowerCase().includes(query.toLowerCase());
     const filterMatch = filter === 'all' || log.type === filter;
     return queryMatch && filterMatch;
@@ -57,7 +60,7 @@ export const AdminLogsPage = () => {
         </div>
 
         <div className="divide-y divide-slate-100">
-          {filteredLogs.map((log) => (
+          {filteredLogs.length > 0 ? filteredLogs.map((log) => (
             <div key={log.id} className="p-4 flex items-start gap-4 hover:bg-slate-50 transition-colors">
               <div className={cn(
                 "p-2 rounded-lg shrink-0",
@@ -83,8 +86,7 @@ export const AdminLogsPage = () => {
                 </div>
               </div>
             </div>
-          ))}
-          {filteredLogs.length === 0 && (
+          )) : (
             <div className="p-8 text-center text-slate-500 text-sm">No logs match your current filter.</div>
           )}
         </div>
