@@ -4,6 +4,7 @@ import { Calendar, Clock, Award, ArrowRight, TrendingUp, BookOpen, LayoutDashboa
 import { Card } from '../components/Card.jsx';
 import { Button } from '../components/Button.jsx';
 import { MOCK_EXAMS, MOCK_USER } from '../mockData.js';
+import { getExams } from '../lib/api.ts';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { cn } from '../lib/utils.js';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,16 @@ export const StudentDashboard = () => {
     const userData = getStoredUser();
     const fresh = Boolean(userData?.isNewUser);
     setIsNewUser(fresh);
-    setExams(fresh ? [] : MOCK_EXAMS);
+    const fetchExams = async () => {
+      try {
+        const data = await getExams();
+        setExams(data.exams || []);
+      } catch (error) {
+        console.error('Failed to fetch exams:', error);
+        setExams([]);
+      }
+    };
+    fetchExams();
   }, []);
 
   const stats = [

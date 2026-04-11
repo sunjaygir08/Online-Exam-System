@@ -1,9 +1,194 @@
 {
-  "users": [],
-  "exams": [],
-  "questions": [],
+  "users": [
+    {
+      "id": "fbb0d100-1ed1-442d-ba07-f1706e8723cb",
+      "name": "Sunjay",
+      "email": "sunjaygir@gmail.com",
+      "password": "12ac592a8f2f5038daaa1cf371a980d7:0c964562691a395920dacdb70bdbf7ff4a78801804951be21747627cbeadca9cc9306c993e4ebfd239f21a31839294751fc55a2adbccf7eb18a7457e3279abd9",
+      "role": "student",
+      "isNewUser": true,
+      "sessions": [
+        "fc11e270-8e47-463a-8071-901a543c2737"
+      ],
+      "createdAt": "2026-04-11T20:22:19.276Z"
+    },
+    {
+      "id": "20436bee-613e-4452-8315-ec4079f951fe",
+      "name": "Admin Demo",
+      "email": "admin@example.com",
+      "password": "a81296a719ece67449388f44ac970e8c:951c6fc8d2995b25d0a8bdeda0072020070b0a2497c13cf7f717feecdcd51aca8bd3e802ecdad23eb856f93cddfae504a6ef79694b9c9f1d7c29971b188b02d5",
+      "role": "admin",
+      "isNewUser": false,
+      "sessions": [
+        "4d5e9e74-6bfd-40d2-bf43-67185fe02c9f"
+      ]
+    },
+    {
+      "id": "63277263-1997-4aea-ba74-022b8f865d85",
+      "name": "Teacher Demo",
+      "email": "teacher@example.com",
+      "password": "45ae04b29d3a2bf51d23114efc95b2c7:0e76b41f40895523d5ccd321e0fdbf19a3fd7cd65644acb3ee953b7db5e8155200c9cdc8728f498a3a255f816a7115fba161f4301462d826df1ae7d71dd584e6",
+      "role": "teacher",
+      "isNewUser": false,
+      "sessions": []
+    },
+    {
+      "id": "1926c42a-26b1-4218-8127-52d94ffd304e",
+      "name": "Student Demo",
+      "email": "student@example.com",
+      "password": "c17bed5c578e4ebefad69b3f534b27b2:1158949f3456ab288bf590e78166ca7787771aec266b8c96b0d9986fcd34a208fc5aa9fe1216b5e1787ca14a116d8c42a3c11f13edf3d65fe65e5db4e3999740",
+      "role": "student",
+      "isNewUser": false,
+      "sessions": []
+    }
+  ],
+  "exams": [
+    {
+      "id": "98b76124-d4df-46ff-9b04-af14b6d1724e",
+      "title": "Physics Mid-term",
+      "description": "Basic physics exam for practice.",
+      "duration": 60,
+      "startTime": "2026-04-20T09:00:00.000Z",
+      "status": "published",
+      "ownerId": "63277263-1997-4aea-ba74-022b8f865d85",
+      "assignedRoles": [
+        "student"
+      ],
+      "questions": [
+        {
+          "id": "6446642e-e0ee-452f-b40d-2973db682b50",
+          "text": "What is 2 + 2?",
+          "type": "multiple-choice",
+          "points": 5,
+          "options": [
+            "1",
+            "2",
+            "4",
+            "8"
+          ],
+          "correctAnswer": 2,
+          "createdBy": "teacher",
+          "createdAt": "2026-04-11T20:17:22.322Z"
+        }
+      ],
+      "createdAt": "2026-04-11T20:17:22.322Z"
+    },
+    {
+      "id": "647e8b2f-db5a-478a-83fb-05763d5b08e6",
+      "title": "General Knowledge Quiz",
+      "description": "Short quiz for students.",
+      "duration": 30,
+      "startTime": "2026-04-22T11:00:00.000Z",
+      "status": "draft",
+      "ownerId": "63277263-1997-4aea-ba74-022b8f865d85",
+      "assignedRoles": [
+        "student"
+      ],
+      "questions": [
+        {
+          "id": "b24983a2-c21a-4382-b6e4-a5e2270bcb13",
+          "text": "The capital of Pakistan is ______.",
+          "type": "multiple-choice",
+          "points": 5,
+          "options": [
+            "Karachi",
+            "Lahore",
+            "Islamabad",
+            "Peshawar"
+          ],
+          "correctAnswer": 2,
+          "createdBy": "teacher",
+          "createdAt": "2026-04-11T20:17:22.322Z"
+        }
+      ],
+      "createdAt": "2026-04-11T20:17:22.322Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "6446642e-e0ee-452f-b40d-2973db682b50",
+      "text": "What is 2 + 2?",
+      "type": "multiple-choice",
+      "points": 5,
+      "options": [
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "correctAnswer": 2,
+      "createdBy": "teacher",
+      "createdAt": "2026-04-11T20:17:22.322Z"
+    },
+    {
+      "id": "b24983a2-c21a-4382-b6e4-a5e2270bcb13",
+      "text": "The capital of Pakistan is ______.",
+      "type": "multiple-choice",
+      "points": 5,
+      "options": [
+        "Karachi",
+        "Lahore",
+        "Islamabad",
+        "Peshawar"
+      ],
+      "correctAnswer": 2,
+      "createdBy": "teacher",
+      "createdAt": "2026-04-11T20:17:22.322Z"
+    }
+  ],
   "results": [],
-  "notifications": [],
+  "notifications": [
+    {
+      "id": "929efc28-1b12-4257-ba8d-3d07bf0c563b",
+      "read": false,
+      "createdAt": "2026-04-11T20:22:19.277Z",
+      "userId": "fbb0d100-1ed1-442d-ba07-f1706e8723cb",
+      "title": "Welcome to Smart Exam Hub",
+      "message": "Your account was created successfully.",
+      "type": "success"
+    },
+    {
+      "id": "a60787ea-3947-440a-bc40-d77ca751886c",
+      "read": false,
+      "createdAt": "2026-04-11T20:17:22.322Z",
+      "userId": "1926c42a-26b1-4218-8127-52d94ffd304e",
+      "title": "Welcome",
+      "message": "Your student dashboard is ready.",
+      "type": "info"
+    }
+  ],
   "passwordResetTokens": [],
-  "logs": []
+  "logs": [
+    {
+      "id": "afe24d68-8033-4e69-89be-85e8f18c8feb",
+      "action": "logout",
+      "userId": "fbb0d100-1ed1-442d-ba07-f1706e8723cb",
+      "userName": "Sunjay",
+      "role": "student",
+      "details": {},
+      "createdAt": "2026-04-11T20:22:48.587Z"
+    },
+    {
+      "id": "a512c24b-2723-4923-a069-8e2475c9758b",
+      "action": "register",
+      "userId": "fbb0d100-1ed1-442d-ba07-f1706e8723cb",
+      "userName": "Sunjay",
+      "role": "student",
+      "details": {
+        "email": "sunjaygir@gmail.com"
+      },
+      "createdAt": "2026-04-11T20:22:19.277Z"
+    },
+    {
+      "id": "13158963-da6a-4dcf-977f-8704456b4758",
+      "action": "login",
+      "userId": "20436bee-613e-4452-8315-ec4079f951fe",
+      "userName": "Admin Demo",
+      "role": "admin",
+      "details": {
+        "email": "admin@example.com"
+      },
+      "createdAt": "2026-04-11T20:17:22.554Z"
+    }
+  ]
 }

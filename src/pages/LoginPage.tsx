@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GraduationCap, Mail, Lock, ArrowRight, Github, Chrome, User, Users, Shield } from 'lucide-react';
-import { Button } from '../components/Button.jsx';
-import { Card } from '../components/Card.jsx';
-import { cn } from '../lib/utils.js';
-import { setStoredUser, requestPasswordReset } from '../lib/session.js';
-import { apiCall } from '../lib/api.ts';
+import { Button } from '../components/Button';
+import { Card } from '../components/Card';
+import { UserRole } from '../types';
+import { cn } from '../lib/utils';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -13,91 +12,36 @@ export const LoginPage = () => {
   const isRegister = location.pathname === '/register';
   const [isLoading, setIsLoading] = React.useState(false);
   const [statusMessage, setStatusMessage] = React.useState('');
-  const [resetEmail, setResetEmail] = React.useState('');
-  const [showResetForm, setShowResetForm] = React.useState(false);
-  const [role, setRole] = React.useState('student');
+  const [role, setRole] = React.useState<UserRole>('student');
   const [fullName, setFullName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    // Store user info for demo purposes
+    const userData = {
+      name: isRegister ? fullName : (fullName || 'Alex Johnson'),
+      role: role,
+      isNewUser: isRegister
+    };
+    localStorage.setItem('user', JSON.stringify(userData));
 
-    try {
-      const endpoint = isRegister ? '/auth/register' : '/auth/login';
-      const payload = isRegister
-        ? { name: fullName.trim(), email: email.trim().toLowerCase(), password, role }
-        : { email: email.trim().toLowerCase(), password };
-
-      const response = await apiCall(endpoint, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-      });
-
-      localStorage.setItem('authToken', response.token);
-      setStoredUser(response.user, { resetDemoData: isRegister });
+    setTimeout(() => {
       setIsLoading(false);
-      showMessage(`${isRegister ? 'Account created' : 'Signed in'} successfully.`);
-      navigate(`/${response.user.role}/dashboard`);
-    } catch (error) {
-      setIsLoading(false);
-      showMessage(error.message || 'Unable to authenticate right now.');
-    }
+      navigate(`/${role}/dashboard`);
+    }, 1500);
   };
 
-  const buildProviderAuthUrl = (provider) => {
-    const redirectUri = `${window.location.origin}/login`;
-    const isGoogle = provider === 'Google';
-    const clientId = isGoogle ? import.meta.env.VITE_GOOGLE_CLIENT_ID : import.meta.env.VITE_GITHUB_CLIENT_ID;
-
-    if (!clientId) {
-      return null;
-    }
-
-    if (isGoogle) {
-      const scope = encodeURIComponent('openid email profile');
-      const prompt = isRegister ? 'consent' : 'select_account';
-      const state = encodeURIComponent(JSON.stringify({ role, isRegister, provider }));
-      return `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&prompt=${prompt}&state=${state}`;
-    }
-
-    const scope = encodeURIComponent('read:user user:email');
-    const state = encodeURIComponent(JSON.stringify({ role, isRegister, provider }));
-    return `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}`;
-  };
-
-  const handleProviderAuth = (provider) => {
-    const authUrl = buildProviderAuthUrl(provider);
-    if (!authUrl) {
-      showMessage(`Set VITE_${provider.toUpperCase()}_CLIENT_ID to enable ${provider} sign in.`);
-      return;
-    }
-
-    window.location.assign(authUrl);
-  };
-
-  const handlePasswordReset = (e) => {
-    e.preventDefault();
-
-    if (!resetEmail.trim()) {
-      showMessage('Enter your email to request a reset link.');
-      return;
-    }
-
-    const request = requestPasswordReset(resetEmail.trim().toLowerCase());
-    showMessage(`Reset link prepared for ${request.email}. Check your email inbox.`);
-    setShowResetForm(false);
-    setResetEmail('');
-  };
-
-  const roles = [
+  const roles: { id: UserRole; label: string; icon: any }[] = [
     { id: 'student', label: 'Student', icon: User },
     { id: 'teacher', label: 'Teacher', icon: Users },
     { id: 'admin', label: 'Admin', icon: Shield },
   ];
+        const [email, setEmail] = React.useState('');
+        const [password, setPassword] = React.useState('');
 
-  const showMessage = (message) => {
+  const showMessage = (message: string) => {
     setStatusMessage(message);
     window.setTimeout(() => setStatusMessage(''), 2500);
   };
@@ -154,7 +98,7 @@ export const LoginPage = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
-                    placeholder="Sunjay Gir"
+                    placeholder="Alex Johnson"
                   />
                 </div>
               </div>
@@ -170,7 +114,7 @@ export const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
-                  placeholder="sunjay@example.com"
+                  placeholder="alex@example.com"
                 />
               </div>
             </div>
@@ -181,7 +125,7 @@ export const LoginPage = () => {
                 {!isRegister && (
                   <button
                     type="button"
-                    onClick={() => setShowResetForm((prev) => !prev)}
+                    onClick={() => showMessage('Password reset flow is not connected in this demo.')}
                     className="text-sm font-medium text-brand-600 hover:text-brand-700"
                   >
                     Forgot?
@@ -201,59 +145,25 @@ export const LoginPage = () => {
               </div>
             </div>
 
-            <Button type="submit" className="w-full h-12 text-lg" isLoading={isLoading}>
+            <Button className="w-full h-12 text-lg" isLoading={isLoading}>
               {isRegister ? 'Create Account' : 'Sign In'} <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </form>
-
-          {showResetForm && !isRegister && (
-            <form onSubmit={handlePasswordReset} className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <div>
-                <p className="font-semibold text-slate-900">Reset your password</p>
-                <p className="text-sm text-slate-500">We’ll prepare a reset request using the email address you enter.</p>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  value={resetEmail}
-                  onChange={(e) => setResetEmail(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-                  placeholder="alex@example.com"
-                />
-              </div>
-              <div className="flex gap-3">
-                <Button type="submit" className="flex-1">Send Reset Link</Button>
-                <Button type="button" variant="outline" onClick={() => setShowResetForm(false)}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          )}
 
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">Or {isRegister ? 'sign up' : 'continue'} with</span>
+              <span className="px-2 bg-white text-slate-500">Or continue with</span>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="outline"
-              className="h-12"
-              onClick={() => handleProviderAuth('Google')}
-            >
+            <Button variant="outline" className="h-12" onClick={() => showMessage('Google sign-in is coming soon.') }>
               <Chrome className="w-5 h-5 mr-2" /> Google
             </Button>
-            <Button
-              variant="outline"
-              className="h-12"
-              onClick={() => handleProviderAuth('GitHub')}
-            >
+            <Button variant="outline" className="h-12" onClick={() => showMessage('GitHub sign-in is coming soon.') }>
               <Github className="w-5 h-5 mr-2" /> GitHub
             </Button>
           </div>

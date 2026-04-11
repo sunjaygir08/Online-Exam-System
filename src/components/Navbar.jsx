@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GraduationCap, Bell, User } from 'lucide-react';
 import { Button } from './Button.jsx';
+import { logout } from '../lib/api.ts';
 
 export const Navbar = () => {
   const [user, setUser] = React.useState(() => {
@@ -52,6 +53,10 @@ export const Navbar = () => {
     return () => window.removeEventListener('notificationsUpdated', updateUnreadCount);
   }, []);
 
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
   return (
     <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-40 px-4 lg:px-6 flex items-center justify-between">
       <div className="flex items-center gap-3">
@@ -63,6 +68,7 @@ export const Navbar = () => {
       
       <div className="hidden lg:block">
         <h2 className="text-lg font-semibold text-slate-800">Welcome back, {user.name.split(' ')[0]}</h2>
+        <Button variant="outline" size="sm" onClick={handleLogout} className="ml-2">Logout</Button>
         <p className="text-xs text-slate-500">{user.role === 'student' ? 'Student ID: #STU-2024-001' : 'Faculty ID: #FAC-2024-001'}</p>
       </div>
 
