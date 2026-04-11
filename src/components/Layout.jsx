@@ -1,14 +1,9 @@
 import React from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import { Sidebar } from './Sidebar';
-import { Navbar } from './Navbar';
-import { UserRole } from '../types';
+import { Sidebar } from './Sidebar.jsx';
+import { Navbar } from './Navbar.jsx';
 
-interface LayoutProps {
-  role?: UserRole;
-}
-
-export const Layout = ({ role }: LayoutProps) => {
+export const Layout = ({ role }) => {
   const location = useLocation();
   const storedUser = localStorage.getItem('user');
   const user = storedUser ? JSON.parse(storedUser) : null;

@@ -1,15 +1,14 @@
 import React from 'react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
 import { BookOpen, Clock, Calendar, Search, Filter } from 'lucide-react';
-import { MOCK_EXAMS } from '../mockData';
+import { MOCK_EXAMS } from '../mockData.js';
 import { useNavigate } from 'react-router-dom';
-import { ExamDetailsModal } from '../components/ExamDetailsModal';
-import { Exam } from '../types';
+import { ExamDetailsModal } from '../components/ExamDetailsModal.jsx';
 
 export const MyExamsPage = () => {
   const navigate = useNavigate();
-  const [selectedExam, setSelectedExam] = React.useState<Exam | null>(null);
+  const [selectedExam, setSelectedExam] = React.useState(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   return (

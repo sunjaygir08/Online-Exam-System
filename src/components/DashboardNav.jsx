@@ -1,18 +1,8 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
-interface NavItem {
-  label: string;
-  path: string;
-  icon: any;
-}
-
-interface DashboardNavProps {
-  items: NavItem[];
-}
-
-export const DashboardNav = ({ items }: DashboardNavProps) => {
+export const DashboardNav = ({ items }) => {
   const navigate = useNavigate();
   const location = useLocation();
 

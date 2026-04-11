@@ -1,15 +1,14 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Calendar, Clock, Award, ArrowRight, TrendingUp, BookOpen, LayoutDashboard, ClipboardList, Bell, Users, CheckCircle } from 'lucide-react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
-import { MOCK_EXAMS, MOCK_USER } from '../mockData';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
+import { MOCK_EXAMS, MOCK_USER } from '../mockData.js';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 import { useNavigate } from 'react-router-dom';
-import { DashboardNav } from '../components/DashboardNav';
-import { ExamDetailsModal } from '../components/ExamDetailsModal';
-import { Exam } from '../types';
+import { DashboardNav } from '../components/DashboardNav.jsx';
+import { ExamDetailsModal } from '../components/ExamDetailsModal.jsx';
 
 const PERFORMANCE_DATA = [
   { subject: 'Math', score: 85 },
@@ -22,7 +21,7 @@ const PERFORMANCE_DATA = [
 export const StudentDashboard = () => {
   const navigate = useNavigate();
   const [isNewUser, setIsNewUser] = React.useState(false);
-  const [selectedExam, setSelectedExam] = React.useState<Exam | null>(null);
+  const [selectedExam, setSelectedExam] = React.useState(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const studentNavItems = [

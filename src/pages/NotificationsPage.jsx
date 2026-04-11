@@ -1,13 +1,12 @@
 import React from 'react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
 import { Bell, CheckCircle, AlertCircle, Info, Trash2, Check } from 'lucide-react';
-import { MOCK_NOTIFICATIONS } from '../mockData';
-import { cn } from '../lib/utils';
-import { Notification } from '../types';
+import { MOCK_NOTIFICATIONS } from '../mockData.js';
+import { cn } from '../lib/utils.js';
 
 export const NotificationsPage = () => {
-  const [notifications, setNotifications] = React.useState<Notification[]>([]);
+  const [notifications, setNotifications] = React.useState([]);
 
   React.useEffect(() => {
     const stored = localStorage.getItem('notifications');
@@ -19,14 +18,13 @@ export const NotificationsPage = () => {
     }
   }, []);
 
-  const saveNotifications = (newNotifs: Notification[]) => {
+  const saveNotifications = (newNotifs) => {
     setNotifications(newNotifs);
     localStorage.setItem('notifications', JSON.stringify(newNotifs));
-    // Dispatch event to update navbar badge
     window.dispatchEvent(new Event('notificationsUpdated'));
   };
 
-  const markAsRead = (id: string) => {
+  const markAsRead = (id) => {
     const updated = notifications.map(n => 
       n.id === id ? { ...n, read: true } : n
     );
@@ -38,7 +36,7 @@ export const NotificationsPage = () => {
     saveNotifications(updated);
   };
 
-  const deleteNotification = (id: string) => {
+  const deleteNotification = (id) => {
     const updated = notifications.filter(n => n.id !== id);
     saveNotifications(updated);
   };

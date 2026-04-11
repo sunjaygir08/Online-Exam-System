@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Clock, AlertTriangle, Info, CheckCircle2, Search, Filter } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
 const LOGS = [
   { id: 1, type: 'info', message: 'User Sunjay Gir logged in', time: '2 mins ago', user: 'Sunjay Gir' },

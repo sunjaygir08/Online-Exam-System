@@ -1,17 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Clock, Calendar, BookOpen, AlertCircle, CheckCircle } from 'lucide-react';
-import { Button } from './Button';
-import { Exam } from '../types';
+import { Button } from './Button.jsx';
 
-interface ExamDetailsModalProps {
-  exam: Exam | null;
-  isOpen: boolean;
-  onClose: () => void;
-  onStart: (id: string) => void;
-}
-
-export const ExamDetailsModal = ({ exam, isOpen, onClose, onStart }: ExamDetailsModalProps) => {
+export const ExamDetailsModal = ({ exam, isOpen, onClose, onStart }) => {
   if (!exam) return null;
 
   return (

@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Clock, Shield, AlertTriangle, ChevronLeft, ChevronRight, Save, Camera, Mic } from 'lucide-react';
-import { Button } from '../components/Button';
-import { Card } from '../components/Card';
-import { MOCK_QUESTIONS } from '../mockData';
-import { cn } from '../lib/utils';
+import { Button } from '../components/Button.jsx';
+import { Card } from '../components/Card.jsx';
+import { MOCK_QUESTIONS } from '../mockData.js';
+import { cn } from '../lib/utils.js';
 import { useNavigate } from 'react-router-dom';
 
 export const ActiveExamPage = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const [timeLeft, setTimeLeft] = React.useState(3600); // 1 hour in seconds
-  const [answers, setAnswers] = React.useState<Record<string, number>>({});
+  const [answers, setAnswers] = React.useState({});
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -20,7 +20,7 @@ export const ActiveExamPage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds) => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;

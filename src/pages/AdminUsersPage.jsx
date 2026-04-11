@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { User, Mail, Shield, MoreVertical, Search, UserPlus } from 'lucide-react';
-import { Button } from '../components/Button';
-import { cn } from '../lib/utils';
+import { Button } from '../components/Button.jsx';
+import { cn } from '../lib/utils.js';
 
 const USERS = [
   { id: 1, name: 'Sunjay Gir', email: 'sunjaygir@gmail.com', role: 'Admin', status: 'Active' },

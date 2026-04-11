@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Shield, Zap, CheckCircle, ArrowRight, Menu, X } from 'lucide-react';
-import { Button } from '../components/Button';
+import { Button } from '../components/Button.jsx';
 
 export const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [user, setUser] = React.useState<any>(null);
+  const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -94,7 +94,7 @@ export const LandingPage = () => {
                 Secure, reliable, and automated examination system designed for modern educational institutions. 
                 Experience AI-proctoring and instant grading.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
                 {user ? (
                   <Link to={`/${user.role}/dashboard`} className="w-full sm:w-auto">
                     <Button size="lg" className="w-full h-14 px-8 text-lg">

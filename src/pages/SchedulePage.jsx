@@ -1,14 +1,14 @@
 import React from 'react';
-import { Card } from '../components/Card';
+import { Card } from '../components/Card.jsx';
 import { Calendar as CalendarIcon, Clock, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '../components/Button';
-import { MOCK_EXAMS } from '../mockData';
+import { Button } from '../components/Button.jsx';
+import { MOCK_EXAMS } from '../mockData.js';
 
 export const SchedulePage = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
 
-  const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
+  const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+  const firstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();

@@ -1,15 +1,7 @@
 import React from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  footer?: React.ReactNode;
-}
-
-export const Card = ({ children, className, title, subtitle, footer }: CardProps) => {
+export const Card = ({ children, className, title, subtitle, footer }) => {
   return (
     <div className={cn('bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden', className)}>
       {(title || subtitle) && (

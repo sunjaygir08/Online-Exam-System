@@ -1,13 +1,7 @@
 import React from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg' | 'icon';
-  isLoading?: boolean;
-}
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef(
   ({ className, variant = 'primary', size = 'md', isLoading, children, ...props }, ref) => {
     const variants = {
       primary: 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm',

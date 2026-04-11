@@ -1,22 +1,22 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { LandingPage } from './pages/LandingPage';
-import { AboutPage } from './pages/AboutPage';
-import { ContactPage } from './pages/ContactPage';
-import { LoginPage } from './pages/LoginPage';
-import { StudentDashboard } from './pages/StudentDashboard';
-import { TeacherDashboard } from './pages/TeacherDashboard';
-import { AdminDashboard } from './pages/AdminDashboard';
-import { AdminUsersPage } from './pages/AdminUsersPage';
-import { AdminLogsPage } from './pages/AdminLogsPage';
-import { ActiveExamPage } from './pages/ActiveExamPage';
-import { ResultPage } from './pages/ResultPage';
-import { NotificationsPage } from './pages/NotificationsPage';
-import { CreateExamPage } from './pages/CreateExamPage';
-import { QuestionBankPage } from './pages/QuestionBankPage';
-import { MyExamsPage } from './pages/MyExamsPage';
-import { SchedulePage } from './pages/SchedulePage';
-import { Layout } from './components/Layout';
+import { LandingPage } from './pages/LandingPage.jsx';
+import { AboutPage } from './pages/AboutPage.jsx';
+import { ContactPage } from './pages/ContactPage.jsx';
+import { LoginPage } from './pages/LoginPage.jsx';
+import { StudentDashboard } from './pages/StudentDashboard.jsx';
+import { TeacherDashboard } from './pages/TeacherDashboard.jsx';
+import { AdminDashboard } from './pages/AdminDashboard.jsx';
+import { AdminUsersPage } from './pages/AdminUsersPage.jsx';
+import { AdminLogsPage } from './pages/AdminLogsPage.jsx';
+import { ActiveExamPage } from './pages/ActiveExamPage.jsx';
+import { ResultPage } from './pages/ResultPage.jsx';
+import { NotificationsPage } from './pages/NotificationsPage.jsx';
+import { CreateExamPage } from './pages/CreateExamPage.jsx';
+import { QuestionBankPage } from './pages/QuestionBankPage.jsx';
+import { MyExamsPage } from './pages/MyExamsPage.jsx';
+import { SchedulePage } from './pages/SchedulePage.jsx';
+import { Layout } from './components/Layout.jsx';
 
 export default function App() {
   return (
@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<LoginPage />} /> {/* Reusing login for demo */}
+        <Route path="/register" element={<LoginPage />} />
         
         {/* Student Routes */}
         <Route element={<Layout role="student" />}>

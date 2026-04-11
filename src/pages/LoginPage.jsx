@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GraduationCap, Mail, Lock, ArrowRight, Github, Chrome, User, Users, Shield } from 'lucide-react';
-import { Button } from '../components/Button';
-import { Card } from '../components/Card';
-import { UserRole } from '../types';
-import { cn } from '../lib/utils';
+import { Button } from '../components/Button.jsx';
+import { Card } from '../components/Card.jsx';
+import { cn } from '../lib/utils.js';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isRegister = location.pathname === '/register';
   const [isLoading, setIsLoading] = React.useState(false);
-  const [role, setRole] = React.useState<UserRole>('student');
+  const [role, setRole] = React.useState('student');
   const [fullName, setFullName] = React.useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
     
@@ -32,7 +31,7 @@ export const LoginPage = () => {
     }, 1500);
   };
 
-  const roles: { id: UserRole; label: string; icon: any }[] = [
+  const roles = [
     { id: 'student', label: 'Student', icon: User },
     { id: 'teacher', label: 'Teacher', icon: Users },
     { id: 'admin', label: 'Admin', icon: Shield },
