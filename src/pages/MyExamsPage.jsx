@@ -1,18 +1,17 @@
 import React from 'react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
 import { BookOpen, Clock, Calendar, Search, Filter } from 'lucide-react';
-import { MOCK_EXAMS } from '../mockData';
+import { MOCK_EXAMS } from '../mockData.js';
 import { useNavigate } from 'react-router-dom';
-import { ExamDetailsModal } from '../components/ExamDetailsModal';
-import { Exam } from '../types';
+import { ExamDetailsModal } from '../components/ExamDetailsModal.jsx';
 
 export const MyExamsPage = () => {
   const navigate = useNavigate();
-  const [selectedExam, setSelectedExam] = React.useState<Exam | null>(null);
+  const [selectedExam, setSelectedExam] = React.useState(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
-  const [filter, setFilter] = React.useState<'all' | 'active' | 'upcoming'>('all');
+  const [filter, setFilter] = React.useState('all');
 
   const filteredExams = MOCK_EXAMS.filter((exam) => {
     const searchMatch = exam.title.toLowerCase().includes(query.toLowerCase()) || exam.description.toLowerCase().includes(query.toLowerCase());
@@ -21,7 +20,7 @@ export const MyExamsPage = () => {
   });
 
   const cycleFilter = () => {
-    const order: Array<'all' | 'active' | 'upcoming'> = ['all', 'active', 'upcoming'];
+    const order = ['all', 'active', 'upcoming'];
     const next = order[(order.indexOf(filter) + 1) % order.length];
     setFilter(next);
   };

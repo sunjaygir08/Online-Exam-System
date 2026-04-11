@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Clock, AlertTriangle, Info, CheckCircle2, Search, Filter } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
 const LOGS = [
   { id: 1, type: 'info', message: 'User Sunjay Gir logged in', time: '2 mins ago', user: 'Sunjay Gir' },
@@ -13,7 +13,7 @@ const LOGS = [
 
 export const AdminLogsPage = () => {
   const [query, setQuery] = React.useState('');
-  const [filter, setFilter] = React.useState<'all' | 'info' | 'warning' | 'success' | 'error'>('all');
+  const [filter, setFilter] = React.useState('all');
 
   const filteredLogs = LOGS.filter((log) => {
     const queryMatch = log.message.toLowerCase().includes(query.toLowerCase()) || log.user.toLowerCase().includes(query.toLowerCase());
@@ -22,7 +22,7 @@ export const AdminLogsPage = () => {
   });
 
   const cycleFilter = () => {
-    const order: Array<'all' | 'info' | 'warning' | 'success' | 'error'> = ['all', 'info', 'warning', 'success', 'error'];
+    const order = ['all', 'info', 'warning', 'success', 'error'];
     const next = order[(order.indexOf(filter) + 1) % order.length];
     setFilter(next);
   };

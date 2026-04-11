@@ -1,6 +1,4 @@
-import { Exam, Question, User, Notification } from './types';
-
-export const MOCK_USER: User = {
+export const MOCK_USER = {
   id: 'STU-001',
   name: 'Alex Johnson',
   email: 'alex@example.com',
@@ -8,11 +6,11 @@ export const MOCK_USER: User = {
   avatar: 'https://picsum.photos/seed/alex/100/100',
 };
 
-export const MOCK_EXAMS: Exam[] = [
+export const MOCK_EXAMS = [
   {
     id: 'EX-001',
     title: 'Advanced Mathematics II',
-    description: 'Calculus, Linear Algebra, and Differential Equations.',
+    description: 'Calcul calculus, Linear Algebra, and Differential Equations.',
     duration: 60,
     startTime: '2024-04-12T10:00:00Z',
     endTime: '2024-04-12T11:00:00Z',
@@ -35,7 +33,7 @@ export const MOCK_EXAMS: Exam[] = [
   },
 ];
 
-export const MOCK_QUESTIONS: Question[] = [
+export const MOCK_QUESTIONS = [
   {
     id: 'Q-001',
     text: 'What is the derivative of sin(x)?',
@@ -62,7 +60,7 @@ export const MOCK_QUESTIONS: Question[] = [
   },
 ];
 
-export const MOCK_NOTIFICATIONS: Notification[] = [
+export const MOCK_NOTIFICATIONS = [
   {
     id: 'N-001',
     title: 'Exam Scheduled',

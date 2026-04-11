@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Code, BookOpen, User, Mail, ArrowRight } from 'lucide-react';
-import { Button } from '../components/Button';
+import { Button } from '../components/Button.jsx';
 
 export const AboutPage = () => {
   return (

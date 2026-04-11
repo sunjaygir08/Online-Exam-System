@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { CheckCircle2, XCircle, Award, ArrowRight, Download, Share2, TrendingUp, Clock } from 'lucide-react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { Link } from 'react-router-dom';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
 const TOPIC_PERFORMANCE = [
   { topic: 'Calculus', score: 92 },

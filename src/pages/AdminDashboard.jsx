@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
+import { Card } from '../components/Card.jsx';
+import { Button } from '../components/Button.jsx';
 import { Users, Shield, Server, Activity, AlertCircle, UserPlus } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { cn } from '../lib/utils';
+import { cn } from '../lib/utils.js';
 
 const SYSTEM_LOAD = [
   { time: '10:00', load: 45 },

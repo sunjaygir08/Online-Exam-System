@@ -1,19 +1,14 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GraduationCap, LayoutDashboard, BookOpen, ClipboardList, Bell, Settings, LogOut, User, ShieldCheck } from 'lucide-react';
-import { cn } from '../lib/utils';
-import { UserRole } from '../types';
+import { cn } from '../lib/utils.js';
 
-interface SidebarProps {
-  role: UserRole;
-}
-
-export const Sidebar = ({ role }: SidebarProps) => {
+export const Sidebar = ({ role }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // In a real app, you'd clear auth state here
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
@@ -38,7 +33,7 @@ export const Sidebar = ({ role }: SidebarProps) => {
     ],
   };
 
-  const items = menuItems[role];
+  const items = menuItems[role] || [];
 
   return (
     <aside className="w-64 bg-white border-r border-slate-200 h-screen sticky top-0 flex flex-col">

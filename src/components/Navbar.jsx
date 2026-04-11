@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GraduationCap, Bell, User } from 'lucide-react';
-import { Button } from './Button';
+import { Button } from './Button.jsx';
 
 export const Navbar = () => {
-  const [user, setUser] = React.useState({ name: 'Alex Johnson', role: 'student' });
+  const [user, setUser] = React.useState(() => {
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored) : { name: 'Guest User', role: 'student' };
+  });
   const [unreadCount, setUnreadCount] = React.useState(0);
   const navigate = useNavigate();
 
   const updateUnreadCount = () => {
     let stored = localStorage.getItem('notifications');
     if (!stored) {
-      // Initialize if missing
       const initialNotifs = [
         {
           id: 'N-001',
@@ -35,7 +37,7 @@ export const Navbar = () => {
     }
     
     const notifications = JSON.parse(stored);
-    const count = notifications.filter((n: any) => !n.read).length;
+    const count = notifications.filter((n) => !n.read).length;
     setUnreadCount(count);
   };
 
@@ -46,7 +48,6 @@ export const Navbar = () => {
     }
     updateUnreadCount();
 
-    // Listen for updates from NotificationsPage
     window.addEventListener('notificationsUpdated', updateUnreadCount);
     return () => window.removeEventListener('notificationsUpdated', updateUnreadCount);
   }, []);
