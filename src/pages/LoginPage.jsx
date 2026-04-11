@@ -138,7 +138,7 @@ export const LoginPage = () => {
               </div>
             </div>
 
-            <Button className="w-full h-12 text-lg" isLoading={isLoading}>
+            <Button type="submit" className="w-full h-12 text-lg" isLoading={isLoading}>
               {isRegister ? 'Create Account' : 'Sign In'} <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </form>
