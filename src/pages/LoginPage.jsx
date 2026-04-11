@@ -4,7 +4,7 @@ import { GraduationCap, Mail, Lock, ArrowRight, Github, Chrome, User, Users, Shi
 import { Button } from '../components/Button.jsx';
 import { Card } from '../components/Card.jsx';
 import { cn } from '../lib/utils.js';
-import { setStoredUser } from '../lib/session.js';
+import { setStoredUser, requestPasswordReset } from '../lib/session.js';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,6 +12,8 @@ export const LoginPage = () => {
   const isRegister = location.pathname === '/register';
   const [isLoading, setIsLoading] = React.useState(false);
   const [statusMessage, setStatusMessage] = React.useState('');
+  const [resetEmail, setResetEmail] = React.useState('');
+  const [showResetForm, setShowResetForm] = React.useState(false);
   const [role, setRole] = React.useState('student');
   const [fullName, setFullName] = React.useState('');
 
@@ -29,8 +31,54 @@ export const LoginPage = () => {
 
     setTimeout(() => {
       setIsLoading(false);
+      showMessage(`${isRegister ? 'Account created' : 'Signed in'} successfully.`);
       navigate(`/${role}/dashboard`);
     }, 1500);
+  };
+
+  const buildProviderAuthUrl = (provider) => {
+    const redirectUri = `${window.location.origin}/login`;
+    const isGoogle = provider === 'Google';
+    const clientId = isGoogle ? import.meta.env.VITE_GOOGLE_CLIENT_ID : import.meta.env.VITE_GITHUB_CLIENT_ID;
+
+    if (!clientId) {
+      return null;
+    }
+
+    if (isGoogle) {
+      const scope = encodeURIComponent('openid email profile');
+      const prompt = isRegister ? 'consent' : 'select_account';
+      const state = encodeURIComponent(JSON.stringify({ role, isRegister, provider }));
+      return `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&prompt=${prompt}&state=${state}`;
+    }
+
+    const scope = encodeURIComponent('read:user user:email');
+    const state = encodeURIComponent(JSON.stringify({ role, isRegister, provider }));
+    return `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}`;
+  };
+
+  const handleProviderAuth = (provider) => {
+    const authUrl = buildProviderAuthUrl(provider);
+    if (!authUrl) {
+      showMessage(`Set VITE_${provider.toUpperCase()}_CLIENT_ID to enable ${provider} sign in.`);
+      return;
+    }
+
+    window.location.assign(authUrl);
+  };
+
+  const handlePasswordReset = (e) => {
+    e.preventDefault();
+
+    if (!resetEmail.trim()) {
+      showMessage('Enter your email to request a reset link.');
+      return;
+    }
+
+    const request = requestPasswordReset(resetEmail.trim().toLowerCase());
+    showMessage(`Reset link prepared for ${request.email}. Check your email inbox.`);
+    setShowResetForm(false);
+    setResetEmail('');
   };
 
   const roles = [
@@ -96,7 +144,7 @@ export const LoginPage = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
-                    placeholder="Alex Johnson"
+                    placeholder="Sunjay Gir"
                   />
                 </div>
               </div>
@@ -110,7 +158,7 @@ export const LoginPage = () => {
                   type="email" 
                   required
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
-                  placeholder="alex@example.com"
+                  placeholder="sunjay@example.com"
                 />
               </div>
             </div>
@@ -121,7 +169,7 @@ export const LoginPage = () => {
                 {!isRegister && (
                   <button
                     type="button"
-                    onClick={() => showMessage('Password reset flow is not connected in this demo.')}
+                    onClick={() => setShowResetForm((prev) => !prev)}
                     className="text-sm font-medium text-brand-600 hover:text-brand-700"
                   >
                     Forgot?
@@ -144,20 +192,54 @@ export const LoginPage = () => {
             </Button>
           </form>
 
+          {showResetForm && !isRegister && (
+            <form onSubmit={handlePasswordReset} className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div>
+                <p className="font-semibold text-slate-900">Reset your password</p>
+                <p className="text-sm text-slate-500">We’ll prepare a reset request using the email address you enter.</p>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-700">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
+                  placeholder="alex@example.com"
+                />
+              </div>
+              <div className="flex gap-3">
+                <Button type="submit" className="flex-1">Send Reset Link</Button>
+                <Button type="button" variant="outline" onClick={() => setShowResetForm(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          )}
+
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">Or continue with</span>
+              <span className="px-2 bg-white text-slate-500">Or {isRegister ? 'sign up' : 'continue'} with</span>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="h-12" onClick={() => showMessage('Google sign-in is coming soon.') }>
+            <Button
+              variant="outline"
+              className="h-12"
+              onClick={() => handleProviderAuth('Google')}
+            >
               <Chrome className="w-5 h-5 mr-2" /> Google
             </Button>
-            <Button variant="outline" className="h-12" onClick={() => showMessage('GitHub sign-in is coming soon.') }>
+            <Button
+              variant="outline"
+              className="h-12"
+              onClick={() => handleProviderAuth('GitHub')}
+            >
               <Github className="w-5 h-5 mr-2" /> GitHub
             </Button>
           </div>

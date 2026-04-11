@@ -6,6 +6,7 @@ const DEMO_STORAGE_KEYS = [
   'student_results',
   'student_schedule',
   'examDraft',
+  'password_reset_requests',
 ];
 
 export function getStoredUser() {
@@ -35,4 +36,17 @@ export function setStoredUser(userData, { resetDemoData = false } = {}) {
 
   localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
   window.dispatchEvent(new Event('userUpdated'));
+}
+
+export function requestPasswordReset(email) {
+  const requests = JSON.parse(localStorage.getItem('password_reset_requests') || '[]');
+  const request = {
+    email,
+    requestedAt: new Date().toISOString(),
+    token: `reset-${Date.now()}`,
+  };
+
+  const nextRequests = [request, ...requests].slice(0, 20);
+  localStorage.setItem('password_reset_requests', JSON.stringify(nextRequests));
+  return request;
 }
