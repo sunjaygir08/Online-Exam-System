@@ -1,16 +1,28 @@
 
+# Smart Exam Hub
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/76c7e403-1255-49d7-aa66-35be8b9e2436
+Smart Exam Hub is a React + Vite online examination platform for students, teachers, and administrators. It includes role-based dashboards, exam creation and scheduling flows, a question bank, notifications, results, and a dedicated exam-taking interface.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js 18 or newer
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Create a local `.env` file if you want to use Gemini features and set `GEMINI_API_KEY`.
+3. Start the app:
    `npm run dev`
+
+The app runs on `http://localhost:3000` by default.
+
+## Build
+
+1. Create a production build:
+   `npm run build`
+2. Preview the build:
+   `npm run preview`
+
+## Notes
+
+- The app can run without Gemini configuration for the dashboard flows.
+- Camera and microphone permissions are requested for the exam interface.
