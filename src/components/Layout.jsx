@@ -6,7 +6,16 @@ import { Navbar } from './Navbar.jsx';
 export const Layout = ({ role }) => {
   const location = useLocation();
   const storedUser = localStorage.getItem('user');
-  const user = storedUser ? JSON.parse(storedUser) : null;
+  let user = null;
+
+  if (storedUser) {
+    try {
+      user = JSON.parse(storedUser);
+    } catch {
+      localStorage.removeItem('user');
+      localStorage.removeItem('authToken');
+    }
+  }
 
   // 1. If not logged in, redirect to login
   if (!user) {

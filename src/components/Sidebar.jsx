@@ -9,6 +9,7 @@ export const Sidebar = ({ role }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
     navigate('/login');
   };
 
