@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Sunjay Gir",
+    "email": "sunjaygir@gmail.com",
+    "password": "12344321",
+    "role": "student",
+    "createdAt": "2026-05-14T06:45:24.483Z"
+  },
+  {
+    "id": 2,
+    "name": "Ajay",
+    "email": "sanjaygirgoswami08@outlook.com",
+    "password": "12344321",
+    "role": "teacher",
+    "createdAt": "2026-05-14T06:46:30.583Z"
+  }
+]
