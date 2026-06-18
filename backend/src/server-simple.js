@@ -23,11 +23,7 @@ if (!fs.existsSync('data')) {
 // Initialize files if they don't exist
 function initFiles() {
   if (!fs.existsSync(usersFile)) {
-    fs.writeFileSync(usersFile, JSON.stringify([
-      { id: 1, name: 'Admin', email: 'admin@example.com', password: 'password123', role: 'admin' },
-      { id: 2, name: 'Teacher', email: 'teacher@example.com', password: 'password123', role: 'teacher' },
-      { id: 3, name: 'Student', email: 'student@example.com', password: 'password123', role: 'student' }
-    ]));
+    fs.writeFileSync(usersFile, JSON.stringify([]));
   }
   if (!fs.existsSync(examsFile)) {
     fs.writeFileSync(examsFile, JSON.stringify([]));
