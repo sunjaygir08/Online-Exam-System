@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Result - Smart Exam Hub</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="fade-in">
+
+  <!-- Animated background mesh -->
+  <div class="animated-mesh"></div>
+
+  <!-- Centered Result Wrapper -->
+  <div style="max-width: 1000px; width: 100%; margin: 50px auto; padding: 0 var(--spacing-md);">
+    
+    <!-- Result Header Card -->
+    <div class="card" style="margin-bottom: var(--spacing-lg); text-align: center; padding: var(--spacing-xl);">
+      <h2 style="margin-bottom: var(--spacing-lg);">Exam Attempt Summary</h2>
+      
+      <!-- Score Circle Split -->
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+        
+        <!-- Score Ring Dial -->
+        <div class="score-ring">
+          <svg class="score-ring__circle" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--secondary)" />
+                <stop offset="100%" stop-color="var(--primary)" />
+              </linearGradient>
+            </defs>
+            <circle class="score-ring__bg" cx="80" cy="80" r="70" />
+            <circle id="scoreRingProgress" class="score-ring__progress" cx="80" cy="80" r="70" />
+          </svg>
+          <div class="score-ring__text">
+            <div id="scoreRingValue" class="score-ring__percentage">0%</div>
+            <div class="score-ring__label">Score</div>
+          </div>
+        </div>
+
+        <!-- Pass / Fail Badge -->
+        <span id="resultStatusBadge" class="badge">Checking...</span>
+      </div>
+      
+      <!-- Statistics Row Cards -->
+      <div class="grid grid--cols-4" style="margin-top: var(--spacing-lg);">
+        <div class="card" style="padding: var(--spacing-md); border-color: var(--border-light);">
+          <p style="font-size: var(--font-xs); text-transform: uppercase;">Total Questions</p>
+          <h3 id="metricTotal" style="margin-top: 4px;">-</h3>
+        </div>
+        <div class="card" style="padding: var(--spacing-md); border-color: var(--border-light);">
+          <p style="font-size: var(--font-xs); text-transform: uppercase; color: var(--success);">Correct</p>
+          <h3 id="metricCorrect" style="margin-top: 4px; color: var(--success);">-</h3>
+        </div>
+        <div class="card" style="padding: var(--spacing-md); border-color: var(--border-light);">
+          <p style="font-size: var(--font-xs); text-transform: uppercase; color: var(--danger);">Wrong</p>
+          <h3 id="metricWrong" style="margin-top: 4px; color: var(--danger);">-</h3>
+        </div>
+        <div class="card" style="padding: var(--spacing-md); border-color: var(--border-light);">
+          <p style="font-size: var(--font-xs); text-transform: uppercase; color: var(--warning);">Skipped</p>
+          <h3 id="metricSkipped" style="margin-top: 4px; color: var(--warning);">-</h3>
+        </div>
+      </div>
+      
+      <!-- Back to Dashboard redirect button -->
+      <div style="margin-top: var(--spacing-xl);">
+        <a href="dashboard.html" class="btn btn--primary">
+          <i class="fas fa-home"></i> Back to Dashboard
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Deep-dive Answer Review Panel -->
+    <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-microscope" style="color: var(--secondary); margin-right: 8px;"></i> Question Analysis</h3>
+    <div class="table-container" style="margin-bottom: 50px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 70px;">Num</th>
+            <th>Question Description & Choices</th>
+            <th>Your Selection</th>
+            <th>Correct Choice</th>
+            <th style="text-align: center; width: 80px;">Status</th>
+            <th style="width: 100px;">Marks</th>
+          </tr>
+        </thead>
+        <tbody id="answersReviewBody">
+          <!-- Dynamic Answer Reviews Rendered Here -->
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 20px;">
+              <div class="spinner" style="margin: auto;"></div>
+              <p style="margin-top: var(--spacing-md);">Loading deep-dive review analysis...</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- JavaScript Client Core -->
+  <script src="../js/api.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/result.js"></script>
+</body>
+</html>

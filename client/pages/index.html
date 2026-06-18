@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Smart Exam Hub</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="fade-in">
+
+  <!-- Animated background mesh -->
+  <div class="animated-mesh"></div>
+
+  <!-- Centered Login Card -->
+  <div style="display: flex; min-height: 100vh; align-items: center; justify-content: center; padding: var(--spacing-md);">
+    <div class="card" style="width: 100%; max-width: 420px;">
+      
+      <!-- Brand Logo & Header -->
+      <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+        <div style="
+          width: 60px;
+          height: 60px;
+          border-radius: var(--radius-md);
+          background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: var(--font-lg);
+          color: #ffffff;
+          margin-bottom: var(--spacing-md);
+          box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3);
+        ">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <h2>Smart Exam Hub</h2>
+        <p style="margin-top: var(--spacing-xs);">Log in to access your dashboard</p>
+      </div>
+
+      <!-- Credentials Form -->
+      <form id="loginForm" novalidate>
+        <!-- Email Input -->
+        <div class="form-group">
+          <input type="email" id="loginEmail" class="form-control" placeholder=" " required>
+          <label class="form-label" for="loginEmail">Email Address</label>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group" style="margin-bottom: var(--spacing-md);">
+          <input type="password" id="loginPassword" class="form-control" placeholder=" " required>
+          <label class="form-label" for="loginPassword">Password</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn--primary" style="width: 100%; margin-top: var(--spacing-md); height: 46px;">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div style="display: flex; align-items: center; justify-content: center; margin: var(--spacing-lg) 0; gap: var(--spacing-md);">
+        <span style="height: 1px; background: var(--border); flex: 1;"></span>
+        <span style="font-size: var(--font-xs); color: var(--text-muted); text-transform: uppercase;">or</span>
+        <span style="height: 1px; background: var(--border); flex: 1;"></span>
+      </div>
+
+      <!-- Google OAuth Sign in -->
+      <a href="/api/auth/google" class="btn btn--google" style="width: 100%; display: flex; text-decoration: none; justify-content: center; height: 46px;">
+        <svg viewBox="0 0 48 48" width="18px" height="18px" style="margin-right: 10px;">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24c0-1.65-.15-3.22-.42-4.75H24v9h12.75c-.55 2.89-2.18 5.33-4.64 7.01l7.22 5.6C43.54 36.5 46.5 30.76 46.5 24z"/>
+          <path fill="#FBBC05" d="M10.54 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.98-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.22-5.6c-2.01 1.35-4.58 2.16-7.67 2.16-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Sign in with Google
+      </a>
+
+      <!-- Register redirection link -->
+      <div style="text-align: center; margin-top: var(--spacing-xl); font-size: var(--font-sm);">
+        <p>Don't have an account? <a href="register.html" style="font-weight: 600;">Create one now</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Client Core -->
+  <script src="../js/api.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Smart Exam Hub</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="fade-in">
+
+  <!-- Animated background mesh -->
+  <div class="animated-mesh"></div>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <nav id="appSidebar" class="sidebar">
+      <!-- Brand Logo -->
+      <div class="sidebar__brand">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Exam Hub</span>
+      </div>
+
+      <!-- User avatar & profile metadata -->
+      <div class="sidebar__user">
+        <div id="sbAvatar" class="user-avatar">--</div>
+        <div class="user-info">
+          <div id="sbName" class="user-info__name">Loading...</div>
+          <span id="sbRoleBadge" class="badge">student</span>
+        </div>
+      </div>
+
+      <!-- Navigation links menu -->
+      <ul class="sidebar__menu">
+        <li>
+          <a href="dashboard.html" class="menu-item active">
+            <i class="fas fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li id="sbTeacherLink" style="display: none;">
+          <a href="teacher.html" class="menu-item">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Teacher Panel</span>
+          </a>
+        </li>
+        <li id="sbAdminLink" style="display: none;">
+          <a href="admin.html" class="menu-item">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin Panel</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Logout menu footer -->
+      <div class="sidebar__footer">
+        <button id="logoutBtn" class="menu-item" style="border: none; width: 100%; text-align: left; padding: 12px 16px;">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Workspace Content -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header Navbar -->
+      <header class="navbar">
+        <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+          <!-- Mobile Sidebar Toggle -->
+          <button id="sidebarToggle" class="navbar__toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="navbar__breadcrumb">
+            Online Exam System / <span>Dashboard</span>
+          </div>
+        </div>
+
+        <div class="navbar__actions">
+          <i class="fas fa-bell notification-bell"></i>
+          <div style="width: 1px; height: 24px; background: var(--border);"></div>
+          <div style="font-size: var(--font-sm); font-weight: 500; color: var(--text-muted);">
+            Welcome back!
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Area -->
+      <main class="content-area">
+        
+        <!-- ========================================== -->
+        <!-- STUDENT DASHBOARD PANEL -->
+        <!-- ========================================== -->
+        <section id="studentDashboard" style="display: none;">
+          <h2 style="margin-bottom: var(--spacing-lg);">Student Workspace</h2>
+
+          <!-- Stats Grid -->
+          <div class="grid grid--cols-3" style="margin-bottom: var(--spacing-xl);">
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Exams Taken</p>
+                <h3 id="statTotalExams">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-tasks"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Exams Passed</p>
+                <h3 id="statPassedExams" style="color: var(--success);">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-award"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Average Score</p>
+                <h3 id="statAvgScore">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-chart-line"></i></div>
+            </div>
+          </div>
+
+          <!-- Upcoming Exams Grid -->
+          <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-hourglass-start" style="color: var(--secondary); margin-right: 8px;"></i> Upcoming Exams</h3>
+          <div id="studentUpcomingExams" class="grid grid--cols-2" style="margin-bottom: var(--spacing-xl);">
+            <!-- Dynamic Exam Cards Rendered Here -->
+          </div>
+
+          <!-- Recent Attempts History -->
+          <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-history" style="color: var(--primary); margin-right: 8px;"></i> Recent Exam Results</h3>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Exam Title</th>
+                  <th>Submitted Date</th>
+                  <th>Score</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="studentRecentResults">
+                <!-- Dynamic Results Rows Rendered Here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- TEACHER DASHBOARD PANEL -->
+        <!-- ========================================== -->
+        <section id="teacherDashboard" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); flex-wrap: wrap; gap: var(--spacing-md);">
+            <h2>Teacher Workspace</h2>
+            <a href="teacher.html" class="btn btn--primary">
+              <i class="fas fa-plus"></i> Go to Teacher Panel
+            </a>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid--cols-3" style="margin-bottom: var(--spacing-xl);">
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Exams Created</p>
+                <h3 id="teacherTotalExams">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-file-alt"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Assigned Students</p>
+                <h3 style="color: var(--secondary);">Active</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-users"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Grading Engine</p>
+                <h3 style="color: var(--success);">Online</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-check-circle"></i></div>
+            </div>
+          </div>
+
+          <!-- Exams Overview Table -->
+          <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-clipboard-list" style="color: var(--secondary); margin-right: 8px;"></i> My Active Exams Summary</h3>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Exam Title</th>
+                  <th>Scheduled At</th>
+                  <th>Duration</th>
+                  <th>Questions</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="teacherExamsList">
+                <!-- Dynamic Teacher Exam Rows Rendered Here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- ADMIN DASHBOARD PANEL -->
+        <!-- ========================================== -->
+        <section id="adminDashboard" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+            <h2>Administrator Console</h2>
+            <a href="admin.html" class="btn btn--secondary">
+              <i class="fas fa-user-cog"></i> Go to Admin Panel
+            </a>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid--cols-3" style="margin-bottom: var(--spacing-xl);">
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Total Registered Users</p>
+                <h3 id="adminTotalUsers">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-users"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Total Exams Hosted</p>
+                <h3 id="adminTotalExams" style="color: var(--secondary);">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-book"></i></div>
+            </div>
+            <div class="card stat-widget">
+              <div class="stat-widget__info">
+                <p>Total Submissions</p>
+                <h3 id="adminTotalResults" style="color: var(--success);">-</h3>
+              </div>
+              <div class="stat-widget__icon"><i class="fas fa-poll"></i></div>
+            </div>
+          </div>
+
+          <!-- Graphical Charts -->
+          <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 8px;"></i> System Performance Analytics</h3>
+          <div class="card" style="padding: var(--spacing-lg); max-width: 800px; margin: 0 auto;">
+            <canvas id="analyticsChart" style="max-height: 350px; width: 100%;"></canvas>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar Toggle Helper Script -->
+  <script>
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.getElementById('appSidebar').classList.toggle('active');
+    });
+  </script>
+
+  <!-- JavaScript Client Core -->
+  <script src="../js/api.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
