@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "Admin",
+    "email": "admin@example.com",
+    "password": "$2a$10$Hi2zAUYtKLlbz9AopyCDIeuI1FTuz57uAY3inZ/k531HNo24irH.u",
+    "isEmailVerified": true,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "lastLogin": "2026-05-14T09:08:25.034Z"
+  },
+  {
+    "id": 2,
+    "name": "Teacher",
+    "email": "teacher@example.com",
+    "password": "$2a$10$Hi2zAUYtKLlbz9AopyCDIeuI1FTuz57uAY3inZ/k531HNo24irH.u",
+    "role": "teacher",
+    "isEmailVerified": true,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "lastLogin": "2026-05-14T09:08:10.032Z"
+  },
+  {
+    "id": 3,
+    "name": "Student",
+    "email": "student@example.com",
+    "password": "$2a$10$Hi2zAUYtKLlbz9AopyCDIeuI1FTuz57uAY3inZ/k531HNo24irH.u",
+    "role": "student",
+    "isEmailVerified": true,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "lastLogin": "2026-05-14T09:07:52.148Z"
+  }
+]
