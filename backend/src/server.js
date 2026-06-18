@@ -54,41 +54,8 @@ function initFiles() {
     fs.mkdirSync('data');
   }
 
-  // Initialize users with hashed passwords
   if (!fs.existsSync(usersFile)) {
-    const defaultUsers = [
-      {
-        id: 1,
-        name: 'Admin',
-        email: 'admin@example.com',
-        password: bcrypt.hashSync('password123', 10),
-        role: 'admin',
-        isEmailVerified: true,
-        createdAt: new Date().toISOString(),
-        lastLogin: null
-      },
-      {
-        id: 2,
-        name: 'Teacher',
-        email: 'teacher@example.com',
-        password: bcrypt.hashSync('password123', 10),
-        role: 'teacher',
-        isEmailVerified: true,
-        createdAt: new Date().toISOString(),
-        lastLogin: null
-      },
-      {
-        id: 3,
-        name: 'Student',
-        email: 'student@example.com',
-        password: bcrypt.hashSync('password123', 10),
-        role: 'student',
-        isEmailVerified: true,
-        createdAt: new Date().toISOString(),
-        lastLogin: null
-      }
-    ];
-    fs.writeFileSync(usersFile, JSON.stringify(defaultUsers, null, 2));
+    fs.writeFileSync(usersFile, JSON.stringify([], null, 2));
   }
 
   if (!fs.existsSync(examsFile)) {
