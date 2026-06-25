@@ -761,9 +761,3 @@ curl -X POST http://localhost:5000/api/results/submit \
     "negativeMarkingEnabled": true
   }'
 ```
-
----
-
-**Version:** 2.0.0
-**Last Updated:** May 14, 2026
-**Status:** Complete with all 11 features ✅
