@@ -263,3 +263,38 @@ The `.env` file includes:
 - [x] Negative marking system
 - [x] Feedback system for students
 - [x] Admin user management
+
+## � Planned Features
+
+- [ ] Mobile app
+- [ ] Advanced analytics dashboard
+- [ ] Bulk user import from CSV
+- [ ] Exam templates
+- [ ] Discussion forums
+- [ ] Proctoring integration
+- [ ] Multi-language support
+- [ ] Database migration (MongoDB/PostgreSQL)
+- [ ] Certificate generation
+
+## 📄 License
+
+MIT License - Feel free to use this project for educational and commercial purposes.
+
+## 🤝 Contributing
+
+Contributions welcome! Open issues and pull requests on GitHub.
+
+## 📞 Support
+
+For questions or issues, please open a GitHub issue.
+
+---
+
+## 📚 Documentation
+
+- [API_REFERENCE.md](API_REFERENCE.md) - Complete API guide with examples
+- [FEATURES_IMPLEMENTED.md](FEATURES_IMPLEMENTED.md) - Detailed feature documentation
+
+---
+
+**Version**: 2.0.0 | **Last Updated**: May 14, 2026 | **Status**: ✅ Production Ready
