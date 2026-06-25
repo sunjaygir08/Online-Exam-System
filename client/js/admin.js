@@ -348,7 +348,7 @@ async function handleQuestionSubmit(e) {
       toast.success('Question updated successfully!');
     } else {
       // Add Question
-      await api.post(`/${currentActiveExamId}/questions`, {
+      await api.post(`/exams/${currentActiveExamId}/questions`, {
         questionText,
         options,
         correctAnswer,

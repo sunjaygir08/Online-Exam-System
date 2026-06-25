@@ -1,0 +1,32 @@
+[
+  {
+    "userId": "d224d2e0-a89e-4e31-a7ba-00488b38a30a",
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "answers": [
+      {
+        "questionId": "d5605082-6d8d-40f5-b504-1f920b0c7399",
+        "selectedOption": 1
+      },
+      {
+        "questionId": "de71d49c-af56-47e3-96be-8d3097a75a5c",
+        "selectedOption": 3
+      },
+      {
+        "questionId": "cd2fb4f4-c202-4b99-af64-99c62ab53fea",
+        "selectedOption": 2
+      },
+      {
+        "questionId": "275c35b3-7ae2-4261-8dcb-2d6f096c65a0",
+        "selectedOption": 0
+      }
+    ],
+    "score": 8,
+    "totalMarks": 8,
+    "passed": true,
+    "submittedAt": 1782415051839,
+    "_id": "1f8d35f0-daaf-4edc-b1e9-fb9d907c6d89",
+    "id": "1f8d35f0-daaf-4edc-b1e9-fb9d907c6d89",
+    "createdAt": "2026-06-25T19:17:31.839Z",
+    "updatedAt": "2026-06-25T19:17:31.839Z"
+  }
+]

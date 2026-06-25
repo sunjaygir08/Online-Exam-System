@@ -1,0 +1,66 @@
+[
+  {
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "questionText": "Which keyword is used to declare a block-scoped local variable in JavaScript?",
+    "options": [
+      "var",
+      "let",
+      "const",
+      "define"
+    ],
+    "correctAnswer": 1,
+    "marks": 2,
+    "_id": "d5605082-6d8d-40f5-b504-1f920b0c7399",
+    "id": "d5605082-6d8d-40f5-b504-1f920b0c7399",
+    "createdAt": "2026-06-25T19:17:14.730Z",
+    "updatedAt": "2026-06-25T19:17:14.730Z"
+  },
+  {
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "questionText": "Which of the following is NOT a primitive data type in JavaScript?",
+    "options": [
+      "String",
+      "Number",
+      "Boolean",
+      "Object"
+    ],
+    "correctAnswer": 3,
+    "marks": 2,
+    "_id": "de71d49c-af56-47e3-96be-8d3097a75a5c",
+    "id": "de71d49c-af56-47e3-96be-8d3097a75a5c",
+    "createdAt": "2026-06-25T19:17:14.732Z",
+    "updatedAt": "2026-06-25T19:17:14.732Z"
+  },
+  {
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "questionText": "What is the output of: console.log(typeof null);",
+    "options": [
+      "\"null\"",
+      "\"undefined\"",
+      "\"object\"",
+      "\"string\""
+    ],
+    "correctAnswer": 2,
+    "marks": 2,
+    "_id": "cd2fb4f4-c202-4b99-af64-99c62ab53fea",
+    "id": "cd2fb4f4-c202-4b99-af64-99c62ab53fea",
+    "createdAt": "2026-06-25T19:17:14.735Z",
+    "updatedAt": "2026-06-25T19:17:14.735Z"
+  },
+  {
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "questionText": "Which method is used to add one or more elements to the end of an array?",
+    "options": [
+      "push()",
+      "pop()",
+      "shift()",
+      "unshift()"
+    ],
+    "correctAnswer": 0,
+    "marks": 2,
+    "_id": "275c35b3-7ae2-4261-8dcb-2d6f096c65a0",
+    "id": "275c35b3-7ae2-4261-8dcb-2d6f096c65a0",
+    "createdAt": "2026-06-25T19:17:14.738Z",
+    "updatedAt": "2026-06-25T19:17:14.738Z"
+  }
+]

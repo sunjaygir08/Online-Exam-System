@@ -68,12 +68,11 @@ const examSchema = Joi.object({
     'any.required': 'Duration is required'
   }),
   scheduledAt: Joi.date().iso().default(Date.now),
-  assignedTo: Joi.array().items(Joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional()
+  assignedTo: Joi.array().items(Joi.string()).optional()
 });
 
 const questionSchema = Joi.object({
-  examId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
-    'string.pattern.base': 'Invalid Exam ID',
+  examId: Joi.string().required().messages({
     'any.required': 'Exam ID is required'
   }),
   questionText: Joi.string().trim().required().messages({
@@ -92,13 +91,12 @@ const questionSchema = Joi.object({
 });
 
 const resultSubmitSchema = Joi.object({
-  examId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
-    'string.pattern.base': 'Invalid Exam ID',
+  examId: Joi.string().required().messages({
     'any.required': 'Exam ID is required'
   }),
   answers: Joi.array().items(
     Joi.object({
-      questionId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+      questionId: Joi.string().required(),
       selectedOption: Joi.number().integer().min(0).max(10).allow(null).required()
     })
   ).required()

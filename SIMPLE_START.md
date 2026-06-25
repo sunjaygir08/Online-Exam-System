@@ -1,10 +1,6 @@
 # 🎓 SIMPLE Smart Exam System - Easy Setup
 
-اب یہ project سادہ ہے! **آسانی سے کام کرے گا**
 
-## 🚀 شروع کریں (صرف 3 مینٹ میں!)
-
-### Step 1: Backend چلائیں
 
 ```bash
 cd backend

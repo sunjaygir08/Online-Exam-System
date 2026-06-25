@@ -62,8 +62,12 @@ async function loadResult(resultId) {
     if (reviewTableBody) {
       reviewTableBody.innerHTML = answersReview.map((ans, i) => {
         // Find option labels
-        const studentAnsLabel = ans.selectedOption !== null ? `${String.fromCharCode(65 + ans.selectedOption)}. ${ans.options[ans.selectedOption]}` : '<span style="color: var(--warning);">Skipped</span>';
-        const correctAnsLabel = `${String.fromCharCode(65 + ans.correctAnswer)}. ${ans.options[ans.correctAnswer]}`;
+        const studentAnsLabel = (ans.selectedOption !== null && ans.options && ans.options[ans.selectedOption] !== undefined)
+          ? `${String.fromCharCode(65 + ans.selectedOption)}. ${ans.options[ans.selectedOption]}`
+          : '<span style="color: var(--warning);">Skipped</span>';
+        const correctAnsLabel = (ans.correctAnswer !== null && ans.options && ans.options[ans.correctAnswer] !== undefined)
+          ? `${String.fromCharCode(65 + ans.correctAnswer)}. ${ans.options[ans.correctAnswer]}`
+          : '<span style="color: var(--danger);">Unknown</span>';
 
         let statusIcon = '<i class="fas fa-check-circle" style="color: var(--success);"></i>';
         if (ans.selectedOption === null) {

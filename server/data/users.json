@@ -1,0 +1,33 @@
+[
+  {
+    "name": "System Admin",
+    "email": "admin@example.com",
+    "password": "$2a$12$0gBPQnXqQMu0BKG.u.OZWey.DnGFwJYdvFA15amrZOdu6htFDMoN.",
+    "role": "admin",
+    "_id": "f5cf8ae1-676d-45e4-8daa-271e072897f8",
+    "id": "f5cf8ae1-676d-45e4-8daa-271e072897f8",
+    "createdAt": "2026-06-25T19:17:12.559Z",
+    "updatedAt": "2026-06-25T19:17:12.561Z"
+  },
+  {
+    "name": "Professor Smith",
+    "email": "teacher@example.com",
+    "password": "$2a$12$aRlg1badDuYPjI8R.ZAywOm1Bom2PAZaQFesL9h4RJ6UXnF49R1Ee",
+    "role": "teacher",
+    "_id": "51a79322-e044-45a4-8073-f0eadbe1b628",
+    "id": "51a79322-e044-45a4-8073-f0eadbe1b628",
+    "createdAt": "2026-06-25T19:17:13.293Z",
+    "updatedAt": "2026-06-25T19:17:13.293Z"
+  },
+  {
+    "name": "John Doe",
+    "email": "student@example.com",
+    "password": "$2a$12$/G96kIFD9.3qdjAVnJ00S.MaTUWfIx46Cmd3t/2.CAuwMdr0Dp8c.",
+    "role": "student",
+    "_id": "d224d2e0-a89e-4e31-a7ba-00488b38a30a",
+    "id": "d224d2e0-a89e-4e31-a7ba-00488b38a30a",
+    "createdAt": "2026-06-25T19:17:14.030Z",
+    "updatedAt": "2026-06-25T19:17:31.765Z",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQyMjRkMmUwLWE4OWUtNGUzMS1hN2JhLTAwNDg4YjM4YTMwYSIsImlhdCI6MTc4MjQxNTA1MSwiZXhwIjoxNzgzMDE5ODUxfQ.rWtw1w3aoif_HLIX2q828fEInQm31W5VAhZxoU6cXWs"
+  }
+]
