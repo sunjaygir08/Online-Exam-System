@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else if (user.role === 'admin') {
     await loadAdminDashboard();
   }
+
+  // Listen to themeChanged events to update Chart.js colors
+  document.addEventListener('themeChanged', async () => {
+    const freshUser = JSON.parse(localStorage.getItem('user'));
+    if (freshUser && freshUser.role === 'admin') {
+      await loadAdminDashboard();
+    }
+  });
 });
 
 /**
@@ -236,6 +244,10 @@ function renderAdminCharts(users, exams, results) {
     window.myDashboardChart.destroy();
   }
 
+  // Read theme colors dynamically from CSS variables
+  const gridColor = getComputedStyle(document.body).getPropertyValue('--border').trim() || '#334155';
+  const tickColor = getComputedStyle(document.body).getPropertyValue('--text-muted').trim() || '#94A3B8';
+
   // Draw Combined Bar/Doughnut Chart details
   window.myDashboardChart = new Chart(ctx, {
     type: 'bar',
@@ -274,10 +286,10 @@ function renderAdminCharts(users, exams, results) {
         y: {
           beginAtZero: true,
           grid: {
-            color: '#334155'
+            color: gridColor
           },
           ticks: {
-            color: '#94A3B8'
+            color: tickColor
           }
         },
         x: {
@@ -285,7 +297,7 @@ function renderAdminCharts(users, exams, results) {
             display: false
           },
           ticks: {
-            color: '#94A3B8'
+            color: tickColor
           }
         }
       }

@@ -29,5 +29,16 @@
     "createdAt": "2026-06-25T19:17:14.030Z",
     "updatedAt": "2026-06-25T19:17:31.765Z",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQyMjRkMmUwLWE4OWUtNGUzMS1hN2JhLTAwNDg4YjM4YTMwYSIsImlhdCI6MTc4MjQxNTA1MSwiZXhwIjoxNzgzMDE5ODUxfQ.rWtw1w3aoif_HLIX2q828fEInQm31W5VAhZxoU6cXWs"
+  },
+  {
+    "name": "sunjay",
+    "email": "sunjaygir@gmail.com",
+    "password": "$2a$12$IOGO5.6E1Zc7dVMV21A6w.RU/4qQB.VvSh8njqOmbm.Miu8KGcpZy",
+    "role": "student",
+    "_id": "b5cd8e15-8b83-4b15-8bf8-de172a198b74",
+    "id": "b5cd8e15-8b83-4b15-8bf8-de172a198b74",
+    "createdAt": "2026-06-25T19:35:04.386Z",
+    "updatedAt": "2026-06-25T19:37:55.707Z",
+    "refreshToken": null
   }
 ]

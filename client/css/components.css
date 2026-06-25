@@ -17,8 +17,8 @@
 
 .card--interactive:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--card-hover-border);
 }
 
 .card__header {
@@ -122,7 +122,7 @@
 .form-control {
   width: 100%;
   padding: 12px 16px;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
@@ -160,7 +160,7 @@
 .select-control {
   width: 100%;
   padding: 12px 16px;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
@@ -170,6 +170,11 @@
   background-repeat: no-repeat;
   background-position: right 16px center;
   background-size: 16px;
+}
+
+.select-control option {
+  background: var(--bg-main);
+  color: var(--text-primary);
 }
 
 .select-control:focus {
@@ -241,7 +246,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  background: rgba(30, 41, 59, 0.2);
+  background: var(--bg-table);
 }
 
 .table th, .table td {
@@ -250,7 +255,7 @@
 }
 
 .table th {
-  background: rgba(15, 23, 42, 0.8);
+  background: var(--bg-table-th);
   font-weight: 600;
   color: var(--text-primary);
   font-size: var(--font-sm);
@@ -263,7 +268,7 @@
 }
 
 .table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--table-row-hover);
 }
 
 /* Modals */
@@ -431,4 +436,43 @@
 @keyframes loadingSkeleton {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* Theme Toggle Button styling */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: var(--font-md);
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  transform: rotate(15deg);
+}
+
+body.light-theme .theme-toggle-btn:hover {
+  background: rgba(15, 23, 42, 0.05);
+}
+
+/* Floating Theme Toggle (for Login/Register/Result pages) */
+.theme-toggle-btn--floating {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }

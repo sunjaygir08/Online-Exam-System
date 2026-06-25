@@ -1,7 +1,54 @@
 /**
  * UTILS.JS
- * Toast system, Modal helpers, Skeleton triggers, Date formatters, Client validation
+ * Toast system, Modal helpers, Skeleton triggers, Date formatters, Client validation, Theme switcher
  */
+
+// ==========================================
+// THEME MANAGER (Runs immediately to avoid flash)
+// ==========================================
+(function initTheme() {
+  const theme = localStorage.getItem('theme') || 'dark';
+  if (theme === 'light') {
+    document.body.classList.add('light-theme');
+  } else {
+    document.body.classList.remove('light-theme');
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Bind theme toggle button
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  if (toggleBtn) {
+    const icon = toggleBtn.querySelector('i');
+    
+    // Set initial icon based on current theme state
+    const isLight = document.body.classList.contains('light-theme');
+    if (icon) {
+      icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    
+    toggleBtn.addEventListener('click', () => {
+      const currentlyLight = document.body.classList.contains('light-theme');
+      if (currentlyLight) {
+        document.body.classList.remove('light-theme');
+        localStorage.setItem('theme', 'dark');
+        if (icon) icon.className = 'fas fa-moon';
+        toast.info('Dark theme enabled', 2000);
+      } else {
+        document.body.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+        if (icon) icon.className = 'fas fa-sun';
+        toast.info('Light theme enabled', 2000);
+      }
+      
+      // Dispatch custom event for visual updates (e.g. Chart.js redraws)
+      document.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme: currentlyLight ? 'dark' : 'light' } 
+      }));
+    });
+  }
+});
+
 
 /**
  * Toast notification manager

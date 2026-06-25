@@ -28,5 +28,35 @@
     "id": "1f8d35f0-daaf-4edc-b1e9-fb9d907c6d89",
     "createdAt": "2026-06-25T19:17:31.839Z",
     "updatedAt": "2026-06-25T19:17:31.839Z"
+  },
+  {
+    "userId": "b5cd8e15-8b83-4b15-8bf8-de172a198b74",
+    "examId": "2356e1c5-cdef-4c45-b682-095b9def40b5",
+    "answers": [
+      {
+        "questionId": "cd2fb4f4-c202-4b99-af64-99c62ab53fea",
+        "selectedOption": 0
+      },
+      {
+        "questionId": "d5605082-6d8d-40f5-b504-1f920b0c7399",
+        "selectedOption": 0
+      },
+      {
+        "questionId": "275c35b3-7ae2-4261-8dcb-2d6f096c65a0",
+        "selectedOption": 0
+      },
+      {
+        "questionId": "de71d49c-af56-47e3-96be-8d3097a75a5c",
+        "selectedOption": 3
+      }
+    ],
+    "score": 4,
+    "totalMarks": 8,
+    "passed": true,
+    "submittedAt": 1782416236729,
+    "_id": "342249d0-816a-4b1c-91f9-d6927ac4d687",
+    "id": "342249d0-816a-4b1c-91f9-d6927ac4d687",
+    "createdAt": "2026-06-25T19:37:16.731Z",
+    "updatedAt": "2026-06-25T19:37:16.731Z"
   }
 ]
