@@ -1,6 +1,6 @@
-# 📚 Modern Online Exam System
+# 📚 Online Examination System
 
-A premium, web-based examination platform designed for educational institutions to manage online exams, student assessments, and real-time grading. Built with a modern dark glassmorphic UI, responsive layouts, role-based controls, and an intelligent local database engine.
+A web-based examination platform designed for educational institutions to manage online exams, student assessments, and real-time grading. Built with a modern dark glassmorphic UI, responsive layouts, role-based controls, and an intelligent local database engine.
 
 ---
 
